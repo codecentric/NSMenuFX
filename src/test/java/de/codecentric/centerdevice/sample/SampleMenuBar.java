@@ -1,6 +1,8 @@
 package de.codecentric.centerdevice.sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -26,6 +28,13 @@ public class SampleMenuBar extends Application {
 		MenuItem item1 = new MenuItem("Item1");
 		MenuItem item2 = new MenuItem("Item2");
 		MenuItem item3 = new MenuItem("Item3");
+		item3.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				System.out.println("Item3 clicked");
+			}
+		});
+
 		MenuItem item4 = new MenuItem("Item4");
 		item4.setOnAction(new HideOthersAction());
 
