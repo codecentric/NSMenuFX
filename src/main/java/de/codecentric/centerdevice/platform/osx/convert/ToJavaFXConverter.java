@@ -19,6 +19,8 @@ import de.codecentric.centerdevice.platform.osx.action.NativeAction;
 
 public class ToJavaFXConverter {
 
+  private static final long sel_isEnabled = OS.sel_registerName("isEnabled");
+
   public Menu convert(NSMenu menu) {
     Menu jfxMenu = new Menu(menu.title().getString());
     NSArray itemArray = menu.itemArray();
@@ -42,6 +44,8 @@ public class ToJavaFXConverter {
 
     MenuItem jfxItem = new MenuItem(item.title().getString());
     jfxItem.setVisible(!item.isHidden());
+    jfxItem.setDisable(!isEnabled(item));
+    
     if (item.action() > 0) {
       jfxItem.setOnAction(new NativeAction(item.action(), item.target()));
     }
@@ -51,6 +55,10 @@ public class ToJavaFXConverter {
     }
 
     return jfxItem;
+  }
+
+  private boolean isEnabled(NSMenuItem item) {
+	return OS.objc_msgSend_bool(item.id, sel_isEnabled);
   }
 
   private KeyCodeCombination getKeyCombination(NSMenuItem item) {
