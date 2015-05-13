@@ -6,14 +6,19 @@ import javafx.scene.control.MenuItem;
 
 import org.eclipse.swt.internal.cocoa.NSApplication;
 import org.eclipse.swt.internal.cocoa.NSArray;
+import org.eclipse.swt.internal.cocoa.NSAttributedString;
+import org.eclipse.swt.internal.cocoa.NSDictionary;
+import org.eclipse.swt.internal.cocoa.NSFont;
+import org.eclipse.swt.internal.cocoa.NSFontManager;
 import org.eclipse.swt.internal.cocoa.NSMenu;
 import org.eclipse.swt.internal.cocoa.NSMenuItem;
 import org.eclipse.swt.internal.cocoa.NSString;
+import org.eclipse.swt.internal.cocoa.OS;
 
 import de.codecentric.centerdevice.platform.osx.convert.ToCocoaConverter;
 import de.codecentric.centerdevice.platform.osx.convert.ToJavaFXConverter;
 
-public class NSMenuBarAdapter {
+public class NSMenuBarAdapter implements NativeMenuBar {
 
   public static final String APPLE_LOGO = "\uF8FF";
   public static final String APPLE_TITLE = "Apple";
@@ -30,6 +35,7 @@ public class NSMenuBarAdapter {
     toCocoa = new ToCocoaConverter();
   }
 
+  @Override
   public void setMenuBar(MenuBar bar) {
     clear(mainMenu);
 
@@ -57,11 +63,13 @@ public class NSMenuBarAdapter {
     renameMenu(0, title);
   }
 
+  @Override
   public void renameMenu(int menuIndex, String title) {
     NSMenu menu = getMenuByIndex(0);
     menu.setTitle(NSString.stringWith(title));
   }
 
+  @Override
   public void renameMenuItem(int menuIndex, int menuItemIndex, String title) {
     NSMenu menu = getMenuByIndex(menuIndex);
 
@@ -71,29 +79,38 @@ public class NSMenuBarAdapter {
     menuItem.setTitle(NSString.stringWith(title));
   }
 
-  public void insertMenuItems(int menuIndex, int menuItemIndex, MenuItem... jfxItems) {
+  @Override
+  public void insertMenuItems(int menuIndex, int menuItemIndex,
+      MenuItem... jfxItems) {
     for (int i = 0; i < jfxItems.length; i++) {
       insertMenuItem(menuIndex, menuItemIndex + i, jfxItems[i]);
     }
   }
 
-  public void insertMenuItem(int menuIndex, int menuItemIndex, MenuItem jfxItem) {
+  @Override
+  public void insertMenuItem(int menuIndex, int menuItemIndex,
+      MenuItem jfxItem) {
     NSMenu menu = getMenuByIndex(menuIndex);
     NSMenuItem menuItem = toCocoa.convert(jfxItem);
     menu.insertItem(menuItem, getPositiveIndex(menuItemIndex, menu.itemArray().count()));
     toCocoa.release(menuItem);
   }
 
+  @Override
   public void removeMenuItem(int menuIndex, int menuItemIndex) {
     NSMenu menu = getMenuByIndex(menuIndex);
-    menu.removeItemAtIndex(getPositiveIndex(menuItemIndex, menu.itemArray().count()));
+    menu.removeItemAtIndex(getPositiveIndex(menuItemIndex, menu.itemArray()
+        .count()));
   }
 
-  public void replaceMenuItem(int menuIndex, int menuItemIndex, MenuItem jfxItem) {
+  @Override
+  public void replaceMenuItem(int menuIndex, int menuItemIndex,
+      MenuItem jfxItem) {
     removeMenuItem(menuIndex, menuItemIndex);
     insertMenuItem(menuIndex, menuItemIndex, jfxItem);
   }
 
+  @Override
   public void addMenuItems(int menuIndex, MenuItem... jfxItems) {
     if (jfxItems.length == 0) {
       return;
@@ -105,6 +122,7 @@ public class NSMenuBarAdapter {
     }
   }
 
+  @Override
   public void addMenuItem(int menuIndex, MenuItem jfxItem) {
     addMenuItem(getMenuByIndex(menuIndex), jfxItem);
   }
@@ -121,6 +139,7 @@ public class NSMenuBarAdapter {
     toCocoa.release(nsMenuItem);
   }
 
+  @Override
   public void addMenu(Menu jfxMenu) {
     addMenuItem(mainMenu, jfxMenu);
   }
@@ -145,6 +164,7 @@ public class NSMenuBarAdapter {
     }
   }
 
+  @Override
   public MenuBar getMenuBar() {
     MenuBar bar = new MenuBar();
     NSArray itemArray = mainMenu.itemArray();

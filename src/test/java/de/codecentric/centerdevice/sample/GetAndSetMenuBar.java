@@ -6,6 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import de.codecentric.centerdevice.platform.osx.NSMenuBarAdapter;
+import de.codecentric.centerdevice.platform.osx.NativeMenuBar;
 
 public class GetAndSetMenuBar extends Application {
 
@@ -16,7 +17,7 @@ public class GetAndSetMenuBar extends Application {
 		primaryStage.requestFocus();
 		primaryStage.show();
 
-		NSMenuBarAdapter adapter = new NSMenuBarAdapter();
+		NativeMenuBar adapter = new NSMenuBarAdapter();
 
 		MenuBar menuBar = adapter.getMenuBar();
 		menuBar.getMenus().get(0).setText("Hello World");
