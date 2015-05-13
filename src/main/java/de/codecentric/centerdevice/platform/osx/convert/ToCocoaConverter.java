@@ -57,6 +57,7 @@ public class ToCocoaConverter {
 	NSMenu convertMenu(Menu jfxMenu) {
 		NSMenu menu = (NSMenu) new NSMenu().alloc();
 		menu.setTitle(NSString.stringWith(jfxMenu.getText()));
+		menu.setAutoenablesItems(false);
 
 		for (MenuItem jfxMenuItem : jfxMenu.getItems()) {
 			NSMenuItem nsMenuItem = convert(jfxMenuItem);
