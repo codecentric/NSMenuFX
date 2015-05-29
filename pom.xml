@@ -17,6 +17,18 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
+	<licenses>
+		<license>
+			<name>BSD 3-Clause</name>
+			<url>http://opensource.org/licenses/BSD-3-Clause</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/codecentric/NSMenuFX</url>
+	</scm>
+
 	<build>
 		<finalName>centerdevice-nsmenufx</finalName>
 		<plugins>
