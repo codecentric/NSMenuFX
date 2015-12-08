@@ -1,5 +1,6 @@
 package de.codecentric.centerdevice.sample;
 
+import de.codecentric.centerdevice.MenuToolkit;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,8 +10,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import de.codecentric.centerdevice.platform.osx.NSMenuBarAdapter;
-import de.codecentric.centerdevice.platform.osx.action.HideOthersAction;
 
 public class SampleMenuBar extends Application {
 
@@ -21,7 +20,7 @@ public class SampleMenuBar extends Application {
 		primaryStage.requestFocus();
 		primaryStage.show();
 
-		NSMenuBarAdapter creator = new NSMenuBarAdapter();
+		MenuToolkit tk = MenuToolkit.toolkit();
 
 		MenuBar bar = new MenuBar();
 
@@ -35,21 +34,20 @@ public class SampleMenuBar extends Application {
 			}
 		});
 
-		MenuItem item4 = new MenuItem("Item4");
-		item4.setOnAction(new HideOthersAction());
+		MenuItem item4 = tk.createQuitMenuItem("my app");
 
-		Menu menu1 = new Menu("Menu1");
-		menu1.getItems().add(item1);
 		Menu menu2 = new Menu("Menu2");
 		menu2.getItems().add(item2);
-		menu1.getItems().add(menu2);
+		Menu menu1 = new Menu("Menu1");
+		menu1.getItems().addAll(item1, menu2, item4);
 
 		Menu menu3 = new Menu("Menu3");
-		menu3.getItems().addAll(item3, item4);
+		menu3.getItems().addAll(item3);
 
 		bar.getMenus().addAll(menu1, menu3);
 
-		creator.setMenuBar(bar);
+		tk.setMenuBar(primaryStage, bar);
+
 	}
 
 	public static void main(String[] args) {

@@ -11,17 +11,16 @@ More details about the project can be found at the codecentric blog:
 
 The following snippet shows a simple example on how to change a menu name:
 
-    // Get the default menu bar as JavaFX object
-    MenuBar menuBar = adapter.getMenuBar();
+    // Get the toolkit
+    MenuToolkit tk = MenuToolkit.toolkit();
     
-    // Change the name of the first menu item
-    menuBar.getMenus().get(0).setText("Hello World");
+    // Create the default Apple menu
+	Menu defaultAppleMenu = tk.createDefaultAppleMenu("test");
+	
+	// Update the existing Apple menu
+	tk.setAppleMenu(defaultAppleMenu);
 
-    // Update the menu bar
-	adapter.setMenuBar(menuBar);
+	// Since we now have a reference to the menu, we can rename items
+	defaultAppleMenu.getItems().get(1).setText("Hide all the otters");
 
 To find more usage examples, have a look into the test classes.
-
-## Remarks
-
-Make sure to disable -XstartOnFirstThread in your run configuration.

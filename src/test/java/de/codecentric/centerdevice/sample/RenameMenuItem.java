@@ -1,14 +1,13 @@
 package de.codecentric.centerdevice.sample;
 
+import de.codecentric.centerdevice.MenuToolkit;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import de.codecentric.centerdevice.platform.osx.NSMenuBarAdapter;
-import de.codecentric.centerdevice.platform.osx.NativeMenuBar;
 
-public class GetAndSetMenuBar extends Application {
+public class RenameMenuItem extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -17,12 +16,11 @@ public class GetAndSetMenuBar extends Application {
 		primaryStage.requestFocus();
 		primaryStage.show();
 
-		NativeMenuBar adapter = new NSMenuBarAdapter();
+		MenuToolkit tk = MenuToolkit.toolkit();
+		Menu defaultAppleMenu = tk.createDefaultAppleMenu("test");
+		tk.setAppleMenu(defaultAppleMenu);
 
-		MenuBar menuBar = adapter.getMenuBar();
-		menuBar.getMenus().get(0).setText("Hello World");
-		menuBar.getMenus().get(0).getItems().get(0).setText("Yeeha");
-		adapter.setMenuBar(menuBar);
+		defaultAppleMenu.getItems().get(1).setText("Hide all the otters");
 	}
 
 	public static void main(String[] args) {
