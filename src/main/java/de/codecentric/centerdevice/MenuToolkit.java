@@ -95,7 +95,7 @@ public class MenuToolkit {
 		}
 	}
 
-	public void setMenuBar(Stage stage, MenuBar menuBar) throws ReflectiveOperationException {
+	public void setMenuBar(Stage stage, MenuBar menuBar) {
 		Parent parent = stage.getScene().getRoot();
 		if (parent instanceof Pane) {
 			setMenuBar((Pane) parent, menuBar);
