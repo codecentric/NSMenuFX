@@ -24,7 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class MenuToolkit {
-	private static final String APPLE = "Apple";
+	private static final String APP_NAME = "Apple";
 
 	private static MenuToolkit toolkit = null;
 
@@ -55,9 +55,9 @@ public class MenuToolkit {
 		}
 	}
 
-	public Menu createDefaultAppleMenu(String appName) {
-		return new Menu(APPLE, null, createHideMenuItem(appName), createHideOthersMenuItem(), createUnhideAllMenuItem(),
-				new SeparatorMenuItem(), createQuitMenuItem(appName));
+	public Menu createDefaultApplicationMenu(String appName) {
+		return new Menu(APP_NAME, null, createHideMenuItem(appName), createHideOthersMenuItem(),
+				createUnhideAllMenuItem(), new SeparatorMenuItem(), createQuitMenuItem(appName));
 	}
 
 	public MenuItem createQuitMenuItem(String appName) {
@@ -87,7 +87,7 @@ public class MenuToolkit {
 		return hide;
 	}
 
-	public void setAppleMenu(Menu menu) {
+	public void setApplicationMenu(Menu menu) {
 		try {
 			systemMenuAdapter.setAppleMenu(GlobalMenuAdapter.adapt(menu));
 		} catch (Throwable e) {
@@ -104,14 +104,14 @@ public class MenuToolkit {
 
 	public void setMenuBar(Pane pane, MenuBar menuBar) {
 		removeExistingMenuBar(pane);
-		pane.getChildren().add(createAppMenuBar(menuBar));
-		setAppleMenu(extractAppleMenu(menuBar));
+		setApplicationMenu(extractApplicationMenu(menuBar));
+		pane.getChildren().add(createMenuBar(extractAdditionalMenus(menuBar)));
 	}
 
-	private MenuBar createAppMenuBar(MenuBar menuBar) {
+	private MenuBar createMenuBar(List<Menu> menus) {
 		MenuBar bar = new MenuBar();
 		bar.setUseSystemMenuBar(true);
-		bar.getMenus().addAll(extractAppMenus(menuBar));
+		bar.getMenus().addAll(menus);
 		return bar;
 	}
 
@@ -120,11 +120,11 @@ public class MenuToolkit {
 		children.removeAll(children.stream().filter(node -> node instanceof MenuBar).collect(Collectors.toList()));
 	}
 
-	private Menu extractAppleMenu(MenuBar menuBar) {
+	private Menu extractApplicationMenu(MenuBar menuBar) {
 		return menuBar.getMenus().get(0);
 	}
 
-	private List<Menu> extractAppMenus(MenuBar bar) {
+	private List<Menu> extractAdditionalMenus(MenuBar bar) {
 		if (bar.getMenus().size() <= 1) {
 			return new ArrayList<>();
 		}

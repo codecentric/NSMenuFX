@@ -17,8 +17,8 @@ public class RenameMenuItem extends Application {
 		primaryStage.show();
 
 		MenuToolkit tk = MenuToolkit.toolkit();
-		Menu defaultAppleMenu = tk.createDefaultAppleMenu("test");
-		tk.setAppleMenu(defaultAppleMenu);
+		Menu defaultAppleMenu = tk.createDefaultApplicationMenu("test");
+		tk.setApplicationMenu(defaultAppleMenu);
 
 		defaultAppleMenu.getItems().get(1).setText("Hide all the otters");
 	}

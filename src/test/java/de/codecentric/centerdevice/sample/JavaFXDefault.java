@@ -17,7 +17,7 @@ public class JavaFXDefault extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		MenuToolkit tk = MenuToolkit.toolkit();
-		tk.setAppleMenu(tk.createDefaultAppleMenu("test"));
+		tk.setApplicationMenu(tk.createDefaultApplicationMenu("test"));
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.useSystemMenuBarProperty().set(true);
