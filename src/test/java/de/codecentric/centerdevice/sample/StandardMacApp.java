@@ -32,16 +32,19 @@ public class StandardMacApp extends Application {
         MenuBar bar = new MenuBar();
 
         // Application Menu
-        // TBD services, show/hide, etc.
+        // TBD: services menu
         Menu appMenu = new Menu(appName);   // Name for appMenu can't be set at Runtime
         MenuItem aboutItem = new MenuItem("About");
         MenuItem prefsItem = new MenuItem("Preferences...");
-        MenuItem quitItem = tk.createQuitMenuItem(appName);
         appMenu.getItems().addAll(aboutItem,
                                     new SeparatorMenuItem(),
                                     prefsItem,
                                     new SeparatorMenuItem(),
-                                    quitItem);
+                                    tk.createHideMenuItem(appName),
+                                    tk.createHideOthersMenuItem(),
+                                    tk.createUnhideAllMenuItem(),
+                                    new SeparatorMenuItem(),
+                                    tk.createQuitMenuItem(appName));
 
         // File Menu (items TBD)
         Menu fileMenu = new Menu("File");
