@@ -16,11 +16,17 @@ public class RenameMenuItem extends Application {
 		primaryStage.requestFocus();
 		primaryStage.show();
 
+		// Get the toolkit
 		MenuToolkit tk = MenuToolkit.toolkit();
-		Menu defaultAppleMenu = tk.createDefaultApplicationMenu("test");
-		tk.setApplicationMenu(defaultAppleMenu);
 
-		defaultAppleMenu.getItems().get(1).setText("Hide all the otters");
+		// Create the default Application menu
+		Menu defaultApplicationMenu = tk.createDefaultApplicationMenu("test");
+
+		// Update the existing Application menu
+		tk.setApplicationMenu(defaultApplicationMenu);
+
+		// Since we now have a reference to the menu, we can rename items
+		defaultApplicationMenu.getItems().get(1).setText("Hide all the otters");
 	}
 
 	public static void main(String[] args) {

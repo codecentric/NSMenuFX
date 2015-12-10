@@ -14,13 +14,13 @@ The following snippet shows a simple example on how to change a menu name:
     // Get the toolkit
     MenuToolkit tk = MenuToolkit.toolkit();
     
-    // Create the default Apple menu
-	Menu defaultAppleMenu = tk.createDefaultAppleMenu("test");
+    // Create the default Application menu
+	Menu defaultApplicationMenu = tk.createDefaultApplicationMenu("test");
 	
-	// Update the existing Apple menu
-	tk.setAppleMenu(defaultAppleMenu);
+	// Update the existing Application menu
+	tk.setApplicationMenu(defaultApplicationMenu);
 
 	// Since we now have a reference to the menu, we can rename items
-	defaultAppleMenu.getItems().get(1).setText("Hide all the otters");
+	defaultApplicationMenu.getItems().get(1).setText("Hide all the otters");
 
 To find more usage examples, have a look into the test classes.
