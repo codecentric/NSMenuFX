@@ -3,6 +3,7 @@ package de.codecentric.centerdevice.sample;
 import de.codecentric.centerdevice.MenuToolkit;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -11,82 +12,84 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
- * Skeleton for Standard Macintosh Application
- * See: "OS X Human Interface Guidelines"
+ * Skeleton for Standard Macintosh Application See:
+ * "OS X Human Interface Guidelines"
  */
 public class StandardMacApp extends Application {
-    static final String appName = "Standard";
-    static final String mainWindowTitle = "Main";
+	static final String appName = "Standard";
+	static final String mainWindowTitle = "Main";
+	static final String childWindowTitle = "Child";
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+	static long counter = 1;
 
-        StackPane root = new StackPane();
-        primaryStage.setScene(new Scene(root, 300, 200));
-        primaryStage.requestFocus();
-        primaryStage.setTitle(mainWindowTitle);
-        primaryStage.show();
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		StackPane root = new StackPane();
+		Button button = new Button();
+		button.setText("Create new Stage");
+		button.setOnAction(action -> createNewStage());
+		root.getChildren().add(button);
 
-        MenuToolkit tk = MenuToolkit.toolkit();
+		primaryStage.setScene(new Scene(root, 300, 200));
+		primaryStage.requestFocus();
+		primaryStage.setTitle(mainWindowTitle);
+		primaryStage.show();
 
-        MenuBar bar = new MenuBar();
+		MenuToolkit tk = MenuToolkit.toolkit();
 
-        // Application Menu
-        // TBD: services menu
-        Menu appMenu = new Menu(appName);   // Name for appMenu can't be set at Runtime
-        MenuItem aboutItem = new MenuItem("About");
-        MenuItem prefsItem = new MenuItem("Preferences...");
-        appMenu.getItems().addAll(aboutItem,
-                                    new SeparatorMenuItem(),
-                                    prefsItem,
-                                    new SeparatorMenuItem(),
-                                    tk.createHideMenuItem(appName),
-                                    tk.createHideOthersMenuItem(),
-                                    tk.createUnhideAllMenuItem(),
-                                    new SeparatorMenuItem(),
-                                    tk.createQuitMenuItem(appName));
+		MenuBar bar = new MenuBar();
 
-        // File Menu (items TBD)
-        Menu fileMenu = new Menu("File");
-        MenuItem newItem = new MenuItem("New...");
-        fileMenu.getItems().addAll(newItem, new MenuItem("TBD"));
+		// Application Menu
+		// TBD: services menu
+		Menu appMenu = new Menu(appName); // Name for appMenu can't be set at
+											// Runtime
+		MenuItem aboutItem = new MenuItem("About");
+		MenuItem prefsItem = new MenuItem("Preferences...");
+		appMenu.getItems().addAll(aboutItem, new SeparatorMenuItem(), prefsItem, new SeparatorMenuItem(),
+				tk.createHideMenuItem(appName), tk.createHideOthersMenuItem(), tk.createUnhideAllMenuItem(),
+				new SeparatorMenuItem(), tk.createQuitMenuItem(appName));
 
-        // Edit (items TBD)
-        Menu editMenu = new Menu("Edit");
-        editMenu.getItems().addAll(new MenuItem("TBD"));
+		// File Menu (items TBD)
+		Menu fileMenu = new Menu("File");
+		MenuItem newItem = new MenuItem("New...");
+		fileMenu.getItems().addAll(newItem, new MenuItem("TBD"));
 
-        // Format (items TBD)
-        Menu formatMenu = new Menu("Format");
-        formatMenu.getItems().addAll(new MenuItem("TBD"));
+		// Edit (items TBD)
+		Menu editMenu = new Menu("Edit");
+		editMenu.getItems().addAll(new MenuItem("TBD"));
 
-        // View Menu (items TBD)
-        Menu viewMenu = new Menu("View");
-        viewMenu.getItems().addAll(new MenuItem("TBD"));
+		// Format (items TBD)
+		Menu formatMenu = new Menu("Format");
+		formatMenu.getItems().addAll(new MenuItem("TBD"));
 
-        // Window Menu
-        // TBD standard window menu items
-        Menu windowMenu = new Menu("Window");
-        MenuItem mainWinItem = new MenuItem(mainWindowTitle);
-        windowMenu.getItems().addAll(new MenuItem("TBD"),
-                                new SeparatorMenuItem(),
-                                mainWinItem);
+		// View Menu (items TBD)
+		Menu viewMenu = new Menu("View");
+		viewMenu.getItems().addAll(new MenuItem("TBD"));
 
-        // Help Menu (items TBD)
-        Menu helpMenu = new Menu("Help");
-        helpMenu.getItems().addAll(new MenuItem("TBD"));
+		// Window Menu
+		// TBD standard window menu items
+		Menu windowMenu = new Menu("Window");
+		windowMenu.getItems().addAll(tk.createMinimizeMenuItem(), tk.createZoomMenuItem(), tk.createCycleWindowsItem(),
+				new SeparatorMenuItem(), tk.createBringAllToFrontItem());
 
-        bar.getMenus().addAll(appMenu,
-                                fileMenu,
-                                editMenu,
-                                formatMenu,
-                                viewMenu,
-                                windowMenu,
-                                helpMenu);
+		// Help Menu (items TBD)
+		Menu helpMenu = new Menu("Help");
+		helpMenu.getItems().addAll(new MenuItem("TBD"));
 
-        tk.setMenuBar(primaryStage, bar);
-    }
+		bar.getMenus().addAll(appMenu, fileMenu, editMenu, formatMenu, viewMenu, windowMenu, helpMenu);
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+		tk.autoAddWindowMenuItems(windowMenu);
+		tk.setGlobalMenuBar(bar);
+	}
+
+	private void createNewStage() {
+		Stage stage = new Stage();
+		stage.setScene(new Scene(new StackPane()));
+		stage.setTitle(childWindowTitle + " " + (counter++));
+		stage.show();
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 }

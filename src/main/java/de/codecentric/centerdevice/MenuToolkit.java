@@ -1,17 +1,16 @@
 package de.codecentric.centerdevice;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.sun.javafx.scene.control.GlobalMenuAdapter;
+import com.sun.javafx.stage.StageHelper;
 import com.sun.javafx.tk.Toolkit;
 
 import de.codecentric.centerdevice.glass.GlassAdaptionException;
 import de.codecentric.centerdevice.glass.MacApplicationAdapter;
 import de.codecentric.centerdevice.glass.TKSystemMenuAdapter;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import de.codecentric.centerdevice.listener.MenuBarSyncListener;
+import de.codecentric.centerdevice.listener.WindowMenuUpdateListener;
+import de.codecentric.centerdevice.util.MenuBarUtils;
+import de.codecentric.centerdevice.util.StageUtils;
 import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -87,12 +86,47 @@ public class MenuToolkit {
 		return hide;
 	}
 
+	public MenuItem createMinimizeMenuItem() {
+		MenuItem menuItem = new MenuItem("Minimize");
+		menuItem.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.META_DOWN));
+		menuItem.setOnAction(event -> StageUtils.minimizeFocusedStage());
+		return menuItem;
+	}
+
+	public MenuItem createZoomMenuItem() {
+		MenuItem menuItem = new MenuItem("Zoom");
+		menuItem.setOnAction(event -> StageUtils.zoomFocusedStage());
+		return menuItem;
+	}
+
+	public MenuItem createBringAllToFrontItem() {
+		MenuItem menuItem = new MenuItem("Bring All to Front");
+		menuItem.setOnAction(event -> StageUtils.bringAllToFront());
+		return menuItem;
+	}
+
+	public MenuItem createCycleWindowsItem() {
+		MenuItem menuItem = new MenuItem("Cycle Through Windows");
+		menuItem.setAccelerator(new KeyCodeCombination(KeyCode.BACK_QUOTE, KeyCombination.META_DOWN));
+		menuItem.setOnAction(event -> StageUtils.focusNextStage());
+		return menuItem;
+	}
+
 	public void setApplicationMenu(Menu menu) {
 		try {
 			systemMenuAdapter.setAppleMenu(GlobalMenuAdapter.adapt(menu));
 		} catch (Throwable e) {
 			throw new GlassAdaptionException(e);
 		}
+	}
+
+	public void setGlobalMenuBar(MenuBar menuBar) {
+		setMenuBar(menuBar);
+		MenuBarSyncListener.register(menuBar);
+	}
+
+	public void setMenuBar(MenuBar menuBar) {
+		StageHelper.getStages().forEach(stage -> setMenuBar(stage, menuBar));
 	}
 
 	public void setMenuBar(Stage stage, MenuBar menuBar) {
@@ -103,32 +137,16 @@ public class MenuToolkit {
 	}
 
 	public void setMenuBar(Pane pane, MenuBar menuBar) {
-		removeExistingMenuBar(pane);
 		setApplicationMenu(extractApplicationMenu(menuBar));
-		pane.getChildren().add(createMenuBar(extractAdditionalMenus(menuBar)));
+		MenuBarUtils.setMenuBar(pane, menuBar);
 	}
 
-	private MenuBar createMenuBar(List<Menu> menus) {
-		MenuBar bar = new MenuBar();
-		bar.setUseSystemMenuBar(true);
-		bar.getMenus().addAll(menus);
-		return bar;
+	public void autoAddWindowMenuItems(Menu menu) {
+		menu.getItems().add(new SeparatorMenuItem());
+		StageHelper.getStages().addListener(new WindowMenuUpdateListener(menu));
 	}
 
-	private void removeExistingMenuBar(Pane pane) {
-		ObservableList<Node> children = pane.getChildren();
-		children.removeAll(children.stream().filter(node -> node instanceof MenuBar).collect(Collectors.toList()));
-	}
-
-	private Menu extractApplicationMenu(MenuBar menuBar) {
+	protected Menu extractApplicationMenu(MenuBar menuBar) {
 		return menuBar.getMenus().get(0);
 	}
-
-	private List<Menu> extractAdditionalMenus(MenuBar bar) {
-		if (bar.getMenus().size() <= 1) {
-			return new ArrayList<>();
-		}
-		return bar.getMenus().subList(1, bar.getMenus().size());
-	}
-
 }
