@@ -1,5 +1,6 @@
 package de.codecentric.centerdevice.listener;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +13,11 @@ import javafx.stage.Stage;
 
 public class WindowMenuUpdateListener implements ListChangeListener<Stage> {
 
-	private Menu windowMenu;
-	private List<MenuItem> createdMenuItems;
+	private final WeakReference<Menu> windowMenu;
+	private final List<MenuItem> createdMenuItems;
 
 	public WindowMenuUpdateListener(Menu windowMenu) {
-		this.windowMenu = windowMenu;
+		this.windowMenu = new WeakReference<Menu>(windowMenu);
 		createdMenuItems = new ArrayList<>();
 
 		updateWindowMenuItems();
@@ -27,20 +28,26 @@ public class WindowMenuUpdateListener implements ListChangeListener<Stage> {
 		updateWindowMenuItems();
 	}
 
-	public void setWindowMenu(Menu windowMenu) {
-		this.windowMenu = windowMenu;
-	}
-
 	protected void updateWindowMenuItems() {
-		windowMenu.getItems().removeAll(createdMenuItems);
-		StageHelper.getStages().forEach(stage -> createWindowMenuItem(stage));
+		Menu menu = windowMenu.get();
+		if (menu != null) {
+			menu.getItems().removeAll(createdMenuItems);
+			StageHelper.getStages().forEach(stage -> addWindowMenuItem(stage));
+		}
 	}
 
-	private void createWindowMenuItem(Stage stage) {
+	private void addWindowMenuItem(Stage stage) {
+		Menu menu = windowMenu.get();
+		if (menu != null) {
+			addWindowMenuItem(stage, menu);
+		}
+	}
+
+	private void addWindowMenuItem(Stage stage, Menu menu) {
 		MenuItem item = new MenuItem(stage.getTitle());
 		item.setOnAction(event -> stage.toFront());
 		createdMenuItems.add(item);
-		windowMenu.getItems().add(item);
+		menu.getItems().add(item);
 	}
 
 }

@@ -52,7 +52,8 @@ public class StandardMacApp extends Application {
 		// File Menu (items TBD)
 		Menu fileMenu = new Menu("File");
 		MenuItem newItem = new MenuItem("New...");
-		fileMenu.getItems().addAll(newItem, new MenuItem("TBD"));
+		fileMenu.getItems().addAll(newItem, new SeparatorMenuItem(), tk.createCloseWindowMenuItem(),
+				new SeparatorMenuItem(), new MenuItem("TBD"));
 
 		// Edit (items TBD)
 		Menu editMenu = new Menu("Edit");

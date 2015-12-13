@@ -22,8 +22,9 @@ public class MenuBarSyncListener implements ListChangeListener<Stage> {
 	}
 
 	public static void unregister() {
-		if (instance == null) {
+		if (instance != null) {
 			StageHelper.getStages().removeListener(instance);
+			instance = null;
 		}
 	}
 

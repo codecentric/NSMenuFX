@@ -99,6 +99,13 @@ public class MenuToolkit {
 		return menuItem;
 	}
 
+	public MenuItem createCloseWindowMenuItem() {
+		MenuItem menuItem = new MenuItem("Close Window");
+		menuItem.setAccelerator(new KeyCodeCombination(KeyCode.W, KeyCombination.META_DOWN));
+		menuItem.setOnAction(event -> StageUtils.closeCurrentStage());
+		return menuItem;
+	}
+
 	public MenuItem createBringAllToFrontItem() {
 		MenuItem menuItem = new MenuItem("Bring All to Front");
 		menuItem.setOnAction(event -> StageUtils.bringAllToFront());
@@ -123,6 +130,10 @@ public class MenuToolkit {
 	public void setGlobalMenuBar(MenuBar menuBar) {
 		setMenuBar(menuBar);
 		MenuBarSyncListener.register(menuBar);
+	}
+
+	public void unsetGlobalMenuBar() {
+		MenuBarSyncListener.unregister();
 	}
 
 	public void setMenuBar(MenuBar menuBar) {

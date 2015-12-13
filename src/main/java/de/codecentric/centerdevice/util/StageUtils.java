@@ -32,6 +32,10 @@ public class StageUtils {
 		getFocusedStage().ifPresent(stage -> stage.setIconified(true));
 	}
 
+	public static void closeCurrentStage() {
+		getFocusedStage().ifPresent(stage -> stage.close());
+	}
+
 	public static void focusNextStage() {
 		ObservableList<Stage> stages = getStages();
 		int currentStageIndex = getFocusedStageIndex(stages);
@@ -56,7 +60,7 @@ public class StageUtils {
 				return i;
 			}
 		}
-	
+
 		return -1;
 	}
 
