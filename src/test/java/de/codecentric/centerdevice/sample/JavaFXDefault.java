@@ -1,5 +1,6 @@
 package de.codecentric.centerdevice.sample;
 
+import de.codecentric.centerdevice.MenuToolkit;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -15,16 +16,21 @@ public class JavaFXDefault extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		MenuToolkit tk = MenuToolkit.toolkit();
+		tk.setApplicationMenu(tk.createDefaultApplicationMenu("test"));
+
 		MenuBar menuBar = new MenuBar();
 		menuBar.useSystemMenuBarProperty().set(true);
 
 		Menu menu = new Menu("java");
 		MenuItem item = new MenuItem("Test");
 
+		Menu help = new Menu("Help");
 		menu.getItems().add(item);
-		menuBar.getMenus().add(menu);
+		menuBar.getMenus().addAll(menu, help);
 
 		primaryStage.setScene(new Scene(new Pane(menuBar)));
+		primaryStage.setTitle("Test");
 		primaryStage.show();
 	}
 }
