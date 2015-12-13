@@ -9,8 +9,8 @@ NSMenuFX helps you to
 * Automatically use the same menu bar for all stages
 * Create common OS X menus like the Window menu
 
-NSMenuFX is now completely written in JavaFX and does no longer user any
-further dependecies.
+NSMenuFX is now completely written in JavaFX and does no longer use any
+further dependencies.
 
 ## Maven
 
