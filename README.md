@@ -12,6 +12,16 @@ NSMenuFX helps you to
 NSMenuFX is now completely written in JavaFX and does no longer user any
 further dependecies.
 
+## Maven
+
+Add the following lines to the dependencies in your `pom.xml`
+
+	<dependency>
+    	<groupId>de.codecentric.centerdevice</groupId>
+    	<artifactId>centerdevice-nsmenufx</artifactId>
+    	<version>2.0.0</version>
+    </dependency>
+
 ## Usage Examples
 
 The following snippet shows a simple example on how to change a menu item in
