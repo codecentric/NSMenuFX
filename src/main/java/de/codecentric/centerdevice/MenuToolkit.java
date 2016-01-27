@@ -7,6 +7,8 @@ import com.sun.javafx.tk.Toolkit;
 import de.codecentric.centerdevice.glass.GlassAdaptionException;
 import de.codecentric.centerdevice.glass.MacApplicationAdapter;
 import de.codecentric.centerdevice.glass.TKSystemMenuAdapter;
+import de.codecentric.centerdevice.labels.LabelMaker;
+import de.codecentric.centerdevice.labels.LabelName;
 import de.codecentric.centerdevice.listener.MenuBarSyncListener;
 import de.codecentric.centerdevice.listener.WindowMenuUpdateListener;
 import de.codecentric.centerdevice.util.MenuBarUtils;
@@ -22,6 +24,8 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class MenuToolkit {
 	private static final String APP_NAME = "Apple";
 
@@ -30,25 +34,29 @@ public class MenuToolkit {
 	private final TKSystemMenuAdapter systemMenuAdapter;
 	private final MacApplicationAdapter applicationAdapter;
 
-	private MenuToolkit(TKSystemMenuAdapter tkSystemMenuAdapter, MacApplicationAdapter macApplicationAdapter) {
-		systemMenuAdapter = tkSystemMenuAdapter;
-		applicationAdapter = macApplicationAdapter;
+	private final LabelMaker labelMaker;
+
+	private MenuToolkit(TKSystemMenuAdapter systemMenuAdapter, MacApplicationAdapter applicationAdapter,
+			LabelMaker labelMaker) {
+		this.systemMenuAdapter = systemMenuAdapter;
+		this.applicationAdapter = applicationAdapter;
+		this.labelMaker = labelMaker;
 	}
 
 	public static MenuToolkit toolkit() {
 		if (toolkit == null) {
-			toolkit = createToolkit();
+			toolkit = createToolkit(Locale.GERMAN);
 		}
 		return toolkit;
 	}
 
-	private static MenuToolkit createToolkit() {
+	private static MenuToolkit createToolkit(Locale locale) {
 		if (!Toolkit.getToolkit().getSystemMenu().isSupported()) {
 			return null;
 		}
 
 		try {
-			return new MenuToolkit(new TKSystemMenuAdapter(), new MacApplicationAdapter());
+			return new MenuToolkit(new TKSystemMenuAdapter(), new MacApplicationAdapter(), new LabelMaker(locale));
 		} catch (ReflectiveOperationException e) {
 			throw new GlassAdaptionException(e);
 		}
@@ -60,27 +68,27 @@ public class MenuToolkit {
 	}
 
 	public MenuItem createQuitMenuItem(String appName) {
-		MenuItem quit = new MenuItem("Quit " + appName);
+		MenuItem quit = new MenuItem(labelMaker.getLabel(LabelName.QUIT, appName));
 		quit.setOnAction(event -> applicationAdapter.quit());
 		quit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN));
 		return quit;
 	}
 
 	public MenuItem createUnhideAllMenuItem() {
-		MenuItem unhideAll = new MenuItem("Show All");
+		MenuItem unhideAll = new MenuItem(labelMaker.getLabel(LabelName.SHOW_ALL));
 		unhideAll.setOnAction(event -> applicationAdapter.unhideAllApplications());
 		return unhideAll;
 	}
 
 	public MenuItem createHideOthersMenuItem() {
-		MenuItem hideOthers = new MenuItem("Hide Others");
+		MenuItem hideOthers = new MenuItem(labelMaker.getLabel(LabelName.HIDE_OTHERS));
 		hideOthers.setOnAction(event -> applicationAdapter.hideOtherApplications());
 		hideOthers.setAccelerator(new KeyCodeCombination(KeyCode.H, KeyCombination.META_DOWN, KeyCombination.ALT_DOWN));
 		return hideOthers;
 	}
 
 	public MenuItem createHideMenuItem(String appName) {
-		MenuItem hide = new MenuItem("Hide " + appName);
+		MenuItem hide = new MenuItem(labelMaker.getLabel(LabelName.HIDE, appName));
 		hide.setOnAction(event -> applicationAdapter.hide());
 		hide.setAccelerator(new KeyCodeCombination(KeyCode.H, KeyCombination.META_DOWN));
 		return hide;
