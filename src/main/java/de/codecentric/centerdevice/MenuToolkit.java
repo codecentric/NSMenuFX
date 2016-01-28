@@ -2,8 +2,7 @@ package de.codecentric.centerdevice;
 
 import com.sun.javafx.scene.control.GlobalMenuAdapter;
 import com.sun.javafx.stage.StageHelper;
-import com.sun.javafx.tk.Toolkit;
-
+import de.codecentric.centerdevice.glass.AdapterContext;
 import de.codecentric.centerdevice.glass.GlassAdaptionException;
 import de.codecentric.centerdevice.glass.MacApplicationAdapter;
 import de.codecentric.centerdevice.glass.TKSystemMenuAdapter;
@@ -29,37 +28,28 @@ import java.util.Locale;
 public class MenuToolkit {
 	private static final String APP_NAME = "Apple";
 
-	private static MenuToolkit toolkit = null;
-
 	private final TKSystemMenuAdapter systemMenuAdapter;
 	private final MacApplicationAdapter applicationAdapter;
 
 	private final LabelMaker labelMaker;
 
-	private MenuToolkit(TKSystemMenuAdapter systemMenuAdapter, MacApplicationAdapter applicationAdapter,
-			LabelMaker labelMaker) {
-		this.systemMenuAdapter = systemMenuAdapter;
-		this.applicationAdapter = applicationAdapter;
+	private MenuToolkit(AdapterContext adapterContext, LabelMaker labelMaker) {
+		this.systemMenuAdapter = adapterContext.getSystemMenuAdapter();
+		this.applicationAdapter = adapterContext.getApplicationAdapter();
 		this.labelMaker = labelMaker;
 	}
 
 	public static MenuToolkit toolkit() {
-		if (toolkit == null) {
-			toolkit = createToolkit(Locale.GERMAN);
-		}
-		return toolkit;
+		return toolkit(Locale.ENGLISH);
 	}
 
-	private static MenuToolkit createToolkit(Locale locale) {
-		if (!Toolkit.getToolkit().getSystemMenu().isSupported()) {
+	public static MenuToolkit toolkit(Locale locale) {
+		AdapterContext context = AdapterContext.getContext();
+		if (context == null) {
 			return null;
 		}
 
-		try {
-			return new MenuToolkit(new TKSystemMenuAdapter(), new MacApplicationAdapter(), new LabelMaker(locale));
-		} catch (ReflectiveOperationException e) {
-			throw new GlassAdaptionException(e);
-		}
+		return new MenuToolkit(context, new LabelMaker(locale));
 	}
 
 	public Menu createDefaultApplicationMenu(String appName) {
