@@ -1,7 +1,9 @@
 package de.codecentric.centerdevice.labels;
 
 public enum LabelName {
-  HIDE("hide"), QUIT("quit"), ABOUT("about"), SHOW_ALL("show_all"), HIDE_OTHERS("hide_others");
+  HIDE("hide"), QUIT("quit"), ABOUT("about"), SHOW_ALL("show_all"), HIDE_OTHERS("hide_others"), MINIMIZE(
+      "minimize"), ZOOM("zoom"), CLOSE_WINDOW("close_window"), BRING_ALL_TO_FRONT(
+      "bring_all_to_front"), CYCLE_THROUGH_WINDOWS("cycle_through_windows");
 
   private String propertyKey;
 

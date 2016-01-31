@@ -9,6 +9,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class JavaFXDefault extends Application {
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -16,7 +18,7 @@ public class JavaFXDefault extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		MenuToolkit tk = MenuToolkit.toolkit();
+		MenuToolkit tk = MenuToolkit.toolkit(Locale.getDefault());
 		tk.setApplicationMenu(tk.createDefaultApplicationMenu("test"));
 
 		MenuBar menuBar = new MenuBar();

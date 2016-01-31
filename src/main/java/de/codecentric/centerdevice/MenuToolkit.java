@@ -44,12 +44,16 @@ public class MenuToolkit {
 	}
 
 	public static MenuToolkit toolkit(Locale locale) {
+		return toolkit(new LabelMaker(locale));
+	}
+
+	public static MenuToolkit toolkit(LabelMaker labelMaker) {
 		AdapterContext context = AdapterContext.getContext();
 		if (context == null) {
 			return null;
 		}
 
-		return new MenuToolkit(context, new LabelMaker(locale));
+		return new MenuToolkit(context, labelMaker);
 	}
 
 	public Menu createDefaultApplicationMenu(String appName) {
@@ -85,33 +89,33 @@ public class MenuToolkit {
 	}
 
 	public MenuItem createMinimizeMenuItem() {
-		MenuItem menuItem = new MenuItem("Minimize");
+		MenuItem menuItem = new MenuItem(labelMaker.getLabel(LabelName.MINIMIZE));
 		menuItem.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.META_DOWN));
 		menuItem.setOnAction(event -> StageUtils.minimizeFocusedStage());
 		return menuItem;
 	}
 
 	public MenuItem createZoomMenuItem() {
-		MenuItem menuItem = new MenuItem("Zoom");
+		MenuItem menuItem = new MenuItem(labelMaker.getLabel(LabelName.ZOOM));
 		menuItem.setOnAction(event -> StageUtils.zoomFocusedStage());
 		return menuItem;
 	}
 
 	public MenuItem createCloseWindowMenuItem() {
-		MenuItem menuItem = new MenuItem("Close Window");
+		MenuItem menuItem = new MenuItem(labelMaker.getLabel(LabelName.CLOSE_WINDOW));
 		menuItem.setAccelerator(new KeyCodeCombination(KeyCode.W, KeyCombination.META_DOWN));
 		menuItem.setOnAction(event -> StageUtils.closeCurrentStage());
 		return menuItem;
 	}
 
 	public MenuItem createBringAllToFrontItem() {
-		MenuItem menuItem = new MenuItem("Bring All to Front");
+		MenuItem menuItem = new MenuItem(labelMaker.getLabel(LabelName.BRING_ALL_TO_FRONT));
 		menuItem.setOnAction(event -> StageUtils.bringAllToFront());
 		return menuItem;
 	}
 
 	public MenuItem createCycleWindowsItem() {
-		MenuItem menuItem = new MenuItem("Cycle Through Windows");
+		MenuItem menuItem = new MenuItem(labelMaker.getLabel(LabelName.CYCLE_THROUGH_WINDOWS));
 		menuItem.setAccelerator(new KeyCodeCombination(KeyCode.BACK_QUOTE, KeyCombination.META_DOWN));
 		menuItem.setOnAction(event -> StageUtils.focusNextStage());
 		return menuItem;

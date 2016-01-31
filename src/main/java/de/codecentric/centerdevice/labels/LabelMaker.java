@@ -6,37 +6,45 @@ import java.util.Locale;
 import java.util.Properties;
 
 public class LabelMaker {
+  public static final String PROPERTY_FILE_EXTENSION = ".properties";
+  public static final String PROPERTY_FILE_PREFIX = "labels_";
+
   private final Properties properties;
   private Locale locale;
 
-  public LabelMaker() {
-    this(Locale.ENGLISH);
-  }
-
   public LabelMaker(Locale locale) {
     this.locale = locale;
-    InputStream resource = getLabelResource(locale);
     properties = new Properties();
+
+    loadLabelsForLocale(locale);
+  }
+
+  private void loadLabelsForLocale(Locale locale) {
+    InputStream resource = getLabelResource(locale);
     if (resource != null) {
       try {
-        properties.load(resource);
+        loadLabels(resource);
       } catch (IOException e) {
         System.err.println("Unable to load properties: " + e.getMessage());
       }
     }
   }
 
+  public void loadLabels(InputStream resource) throws IOException {
+    properties.load(resource);
+  }
+
   private InputStream getLabelResource(Locale locale) {
     InputStream resource = LabelMaker.class.getClassLoader().getResourceAsStream(getResourceName(locale));
     if (resource == null) {
-      System.err.println(locale.getDisplayLanguage() + " not found. Falling back to english.");
+      System.err.println(locale.getDisplayLanguage() + " menu labels not found. Falling back to english.");
       resource = LabelMaker.class.getClassLoader().getResourceAsStream(getResourceName(Locale.ENGLISH));
     }
     return resource;
   }
 
   private String getResourceName(Locale locale) {
-    return "labels_" + locale.getLanguage() + ".properties";
+    return PROPERTY_FILE_PREFIX + locale.getLanguage() + PROPERTY_FILE_EXTENSION;
   }
 
   public String getLabel(LabelName menuItemName, Object... args) {
