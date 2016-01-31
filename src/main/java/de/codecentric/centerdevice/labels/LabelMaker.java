@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class LabelMaker {
   public static final String PROPERTY_FILE_EXTENSION = ".properties";
-  public static final String PROPERTY_FILE_PREFIX = "labels_";
+  public static final String PROPERTY_FILE_PREFIX = "menu_labels_";
 
   private final Properties properties;
   private Locale locale;
