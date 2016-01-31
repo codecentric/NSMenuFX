@@ -36,7 +36,7 @@ public class LabelMaker {
 
   private InputStream getLabelResource(Locale locale) {
     InputStream resource = LabelMaker.class.getClassLoader().getResourceAsStream(getResourceName(locale));
-    if (resource == null) {
+    if (resource == null && !locale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
       System.err.println(locale.getDisplayLanguage() + " menu labels not found. Falling back to english.");
       resource = LabelMaker.class.getClassLoader().getResourceAsStream(getResourceName(Locale.ENGLISH));
     }
