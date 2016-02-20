@@ -2,10 +2,13 @@ package de.codecentric.centerdevice;
 
 import com.sun.javafx.scene.control.GlobalMenuAdapter;
 import com.sun.javafx.stage.StageHelper;
+import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
 import de.codecentric.centerdevice.glass.AdapterContext;
 import de.codecentric.centerdevice.glass.GlassAdaptionException;
 import de.codecentric.centerdevice.glass.MacApplicationAdapter;
 import de.codecentric.centerdevice.glass.TKSystemMenuAdapter;
+import de.codecentric.centerdevice.icns.IcnsParser;
+import de.codecentric.centerdevice.icns.IcnsType;
 import de.codecentric.centerdevice.labels.LabelMaker;
 import de.codecentric.centerdevice.labels.LabelName;
 import de.codecentric.centerdevice.listener.MenuBarSyncListener;
@@ -17,16 +20,21 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class MenuToolkit {
 	private static final String APP_NAME = "Apple";
+	private static final String DEFAULT_APP_ICON =
+			"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns";
 
 	private final TKSystemMenuAdapter systemMenuAdapter;
 	private final MacApplicationAdapter applicationAdapter;
@@ -57,8 +65,26 @@ public class MenuToolkit {
 	}
 
 	public Menu createDefaultApplicationMenu(String appName) {
-		return new Menu(APP_NAME, null, createHideMenuItem(appName), createHideOthersMenuItem(),
+		return new Menu(APP_NAME, null, createAboutMenuItem(appName), new SeparatorMenuItem(), createHideMenuItem(appName), createHideOthersMenuItem(),
 				createUnhideAllMenuItem(), new SeparatorMenuItem(), createQuitMenuItem(appName));
+	}
+
+	public MenuItem createAboutMenuItem(String appName) {
+		MenuItem about = new MenuItem(labelMaker.getLabel(LabelName.ABOUT, appName));
+		AboutStageBuilder stageBuilder = AboutStageBuilder.start(labelMaker.getLabel(LabelName.ABOUT, appName))
+				.withAppName(appName).withCloseOnFocusLoss().withCopyright("Copyright \u00A9 " + Calendar
+						.getInstance().get(Calendar.YEAR));
+
+		try {
+			IcnsParser parser = IcnsParser.forFile(DEFAULT_APP_ICON);
+			stageBuilder.withImage(new Image(parser.getIconStream(IcnsType.ic08)));
+		} catch (IOException e) {
+			// Too bad, cannot load dummy image
+		}
+
+		Stage aboutStage = stageBuilder.build();
+		about.setOnAction(event -> aboutStage.show());
+		return about;
 	}
 
 	public MenuItem createQuitMenuItem(String appName) {
