@@ -9,6 +9,12 @@ NSMenuFX helps you to
 * Automatically use the same menu bar for all stages
 * Create common OS X menus like the Window menu
 
+![Window Menu Screenshot](https://raw.githubusercontent.com/codecentric/NSMenuFX/master/Assets/Screenshots/WindowMenu.png)
+
+* Quickly create an about menu
+
+![Window Menu Screenshot](https://raw.githubusercontent.com/codecentric/NSMenuFX/master/Assets/Screenshots/AboutStage.png)
+
 NSMenuFX is now completely written in JavaFX and does no longer use any
 further dependencies.
 
