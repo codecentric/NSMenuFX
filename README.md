@@ -6,14 +6,18 @@ a more native look and feel.
 NSMenuFX helps you to
 
 * Customize the auto-generated application menu of your JavaFX app
-* Automatically use the same menu bar for all stages
+
+![Custom App Menu Screenshot](https://raw.githubusercontent.com/codecentric/NSMenuFX/master/Assets/Screenshots/AppMenu.png)
+
 * Create common OS X menus like the Window menu
 
 ![Window Menu Screenshot](https://raw.githubusercontent.com/codecentric/NSMenuFX/master/Assets/Screenshots/WindowMenu.png)
 
 * Quickly create an about menu
 
-![Window Menu Screenshot](https://raw.githubusercontent.com/codecentric/NSMenuFX/master/Assets/Screenshots/AboutStage.png)
+![About Menu Screenshot](https://raw.githubusercontent.com/codecentric/NSMenuFX/master/Assets/Screenshots/AboutStage.png)
+
+* Automatically use the same menu bar for all stages
 
 NSMenuFX is now completely written in JavaFX and does no longer use any
 further dependencies.
