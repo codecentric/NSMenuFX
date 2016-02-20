@@ -2,6 +2,7 @@ package de.codecentric.centerdevice.labels;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -31,7 +32,7 @@ public class LabelMaker {
   }
 
   public void loadLabels(InputStream resource) throws IOException {
-    properties.load(resource);
+    properties.load(new InputStreamReader(resource, "UTF-8"));
   }
 
   private InputStream getLabelResource(Locale locale) {
