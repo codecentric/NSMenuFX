@@ -1,36 +1,27 @@
 package de.codecentric.centerdevice.glass;
 
-import java.lang.invoke.MethodHandle;
-
 import com.sun.glass.ui.Application;
-
-import de.codecentric.centerdevice.util.ReflectionUtils;
+import de.codecentric.centerdevice.platform.NativeAdapter;
 
 public class MacApplicationAdapter {
-	private MethodHandle hide;
-	private MethodHandle hideOtherApplications;
-	private MethodHandle unhideAllApplications;
+	private NativeAdapter nativeAdapter = new NativeAdapter();
 
 	private Application app;
 
 	public MacApplicationAdapter() throws ReflectiveOperationException {
 		app = Application.GetApplication();
-
-		hide = ReflectionUtils.getHandle(app, "_hide");
-		hideOtherApplications = ReflectionUtils.getHandle(app, "_hideOtherApplications");
-		unhideAllApplications = ReflectionUtils.getHandle(app, "_unhideAllApplications");
 	}
 
 	public void hide() {
-		ReflectionUtils.invokeQuietly(hide, app);
+		nativeAdapter.hide();
 	}
 
 	public void hideOtherApplications() {
-		ReflectionUtils.invokeQuietly(hideOtherApplications, app);
+		nativeAdapter.hideOtherApplications();
 	}
 
 	public void unhideAllApplications() {
-		ReflectionUtils.invokeQuietly(unhideAllApplications, app);
+		nativeAdapter.unhideAllApplications();
 	}
 
 	public void quit() {
