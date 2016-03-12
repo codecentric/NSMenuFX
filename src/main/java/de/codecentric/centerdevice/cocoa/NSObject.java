@@ -1,4 +1,4 @@
-package de.codecentric.centerdevice.platform;
+package de.codecentric.centerdevice.cocoa;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,14 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-public class NativeAdapter {
-
+public class NSObject {
   private static final String LIB_NAME = "libNSMenuFX.dylib";
   private static final String LIB_PREFIX = "nsmenufx-";
   private static final String LIB_SUFFIX = ".dylib";
 
   static {
-    try(InputStream lib = NativeAdapter.class.getClassLoader().getResourceAsStream(LIB_NAME)) {
+    try(InputStream lib = NSObject.class.getClassLoader().getResourceAsStream(LIB_NAME)) {
       System.load(writeLibToTempFile(lib).toAbsolutePath().toString());
     } catch (Exception e) {
       e.printStackTrace();
@@ -27,9 +26,13 @@ public class NativeAdapter {
     return tempFilePath;
   }
 
-  public native void hide();
+  private final long id;
 
-  public native void unhideAllApplications();
+  protected NSObject(long id) {
+    this.id = id;
+  }
 
-  public native void hideOtherApplications();
+  protected long getId() {
+    return id;
+  }
 }

@@ -7,11 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D29586D1C8ED31E00C62169 /* libNSMenuFX.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3DAFAC921C8DF523009EB2DA /* libNSMenuFX.dylib */; };
+		3D5AFCB91C9461C0000E5BF3 /* NSMenuItemFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3D5AFCBB1C94747D000E5BF3 /* NSMenuItemFX.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */; };
+		3D5AFCBF1C948251000E5BF3 /* NSObject+JObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */; };
+		3D5AFCC11C948263000E5BF3 /* NSObject+JObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5AFCC01C948263000E5BF3 /* NSObject+JObject.m */; };
 		3DAFAC961C8DF523009EB2DA /* NSMenuFX.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DAFAC951C8DF523009EB2DA /* NSMenuFX.h */; };
 		3DAFAC981C8DF523009EB2DA /* NSMenuFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DAFAC971C8DF523009EB2DA /* NSMenuFX.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3D29586C1C8ED30F00C62169 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ../../../../../../../resources;
+			dstSubfolderSpec = 16;
+			files = (
+				3D29586D1C8ED31E00C62169 /* libNSMenuFX.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMenuItemFX.m; sourceTree = "<group>"; };
+		3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMenuItemFX.h; sourceTree = "<group>"; };
+		3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JObject.h"; sourceTree = "<group>"; };
+		3D5AFCC01C948263000E5BF3 /* NSObject+JObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JObject.m"; sourceTree = "<group>"; };
 		3DAFAC921C8DF523009EB2DA /* libNSMenuFX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libNSMenuFX.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DAFAC951C8DF523009EB2DA /* NSMenuFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMenuFX.h; sourceTree = "<group>"; };
 		3DAFAC971C8DF523009EB2DA /* NSMenuFX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSMenuFX.m; sourceTree = "<group>"; };
@@ -49,6 +71,10 @@
 			children = (
 				3DAFAC951C8DF523009EB2DA /* NSMenuFX.h */,
 				3DAFAC971C8DF523009EB2DA /* NSMenuFX.m */,
+				3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */,
+				3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */,
+				3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */,
+				3D5AFCC01C948263000E5BF3 /* NSObject+JObject.m */,
 			);
 			path = NSMenuFX;
 			sourceTree = "<group>";
@@ -61,6 +87,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DAFAC961C8DF523009EB2DA /* NSMenuFX.h in Headers */,
+				3D5AFCBF1C948251000E5BF3 /* NSObject+JObject.h in Headers */,
+				3D5AFCBB1C94747D000E5BF3 /* NSMenuItemFX.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +102,7 @@
 				3DAFAC8E1C8DF523009EB2DA /* Sources */,
 				3DAFAC8F1C8DF523009EB2DA /* Frameworks */,
 				3DAFAC901C8DF523009EB2DA /* Headers */,
+				3D29586C1C8ED30F00C62169 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -120,7 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D5AFCB91C9461C0000E5BF3 /* NSMenuItemFX.m in Sources */,
 				3DAFAC981C8DF523009EB2DA /* NSMenuFX.m in Sources */,
+				3D5AFCC11C948263000E5BF3 /* NSObject+JObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +276,7 @@
 				3DAFAC9D1C8DF523009EB2DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
