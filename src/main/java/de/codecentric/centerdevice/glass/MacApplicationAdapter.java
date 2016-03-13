@@ -1,10 +1,10 @@
 package de.codecentric.centerdevice.glass;
 
 import com.sun.glass.ui.Application;
-import de.codecentric.centerdevice.platform.NativeAdapter;
+import de.codecentric.centerdevice.cocoa.NSApplication;
 
 public class MacApplicationAdapter {
-	private NativeAdapter nativeAdapter = new NativeAdapter();
+	private NSApplication nativeAdapter = NSApplication.sharedApplication();
 
 	private Application app;
 

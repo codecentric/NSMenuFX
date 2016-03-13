@@ -5,23 +5,45 @@
 //  Created by Jan Gassen on 07/03/16.
 //  Copyright © 2016 Jan Gassen. All rights reserved.
 //
+#ifndef NSMenuFX_h
+#define NSMenuFX_h
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 #import <JavaVM/jni.h>
+#import "NSObjectUtils.h"
 
-@interface NSMenuFX : NSObject
+@interface NSMenuFX: NSObject
+
++(NSObjectUtils*) getUtils:(JNIEnv*)env;
+
++(NSMenu*) fromJObject:(JNIEnv*)env obj:(jobject)obj;
 
 @end
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_platform_NativeAdapter_hideOtherApplications(JNIEnv *env, jobject thisObj);
+    JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_alloc(JNIEnv *env, jobject thisObj);
     
-    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_platform_NativeAdapter_unhideAllApplications(JNIEnv *env, jobject  thisObj);
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_release(JNIEnv *env, jobject thisObj);
     
-    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_platform_NativeAdapter_hide(JNIEnv *env, jobject thisObj);
+    JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_init(JNIEnv *env, jobject thisObj, jstring title);
+    
+    JNIEXPORT jstring JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_title(JNIEnv *env, jobject thisObj);
+    
+    JNIEXPORT jlong JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_numberOfItems(JNIEnv *env, jobject thisObj);
+    
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_removeAllItems(JNIEnv *env, jobject thisObj);
+        
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_addItem(JNIEnv *env, jobject thisObj, jobject item);
+    
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_insertItem(JNIEnv *env, jobject thisObj, jobject item, jint index);
+    
+    JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_itemAtIndex(JNIEnv *env, jobject thisObj, jint index);
     
 #ifdef __cplusplus
 }
+#endif
+
+
 #endif

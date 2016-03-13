@@ -11,7 +11,7 @@
 #import <AppKit/AppKit.h>
 #import <JavaVM/jni.h>
 
-@interface NSObject (NSObjectWithJObject)
+@interface NSMenuItem (NSMenuItemWithJObject)
 @property (nonatomic) jobject jObject;
 @end
 

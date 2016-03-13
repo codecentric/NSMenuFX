@@ -8,8 +8,8 @@
 #import "NSObject+JObject.h"
 #import <Foundation/Foundation.h>
 
-@implementation NSObject (NSObjectWithJObject)
-jobject obj;
+@implementation NSMenuItem (NSMenuItemWithJObject)
+jobject obj = nil;
 
 - (void)setJObject:(jobject)newObj
 {

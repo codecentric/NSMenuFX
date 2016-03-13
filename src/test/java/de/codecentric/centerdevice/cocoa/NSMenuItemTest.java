@@ -14,6 +14,7 @@ public class NSMenuItemTest {
 
     Assert.assertNotNull(item);
     Assert.assertNotEquals(0, item.getId());
+    Assert.assertFalse(item.hasSubmenu());
   }
 
   @Test
@@ -22,5 +23,17 @@ public class NSMenuItemTest {
 
     Assert.assertNotNull(item);
     Assert.assertNotEquals(0, item.getId());
+    Assert.assertEquals("Test", item.title());
+  }
+
+  @Test
+  public void AddSubmenu() {
+    NSMenuItem item = NSMenuItem.alloc().init("Test", (v) -> System.out.println("test"),  "");
+    NSMenu submenu = NSMenu.alloc().init("test");
+    item.setSubmenu(submenu);
+
+    Assert.assertNotNull(item);
+    Assert.assertNotEquals(0, item.getId());
+    Assert.assertTrue(item.hasSubmenu());
   }
 }

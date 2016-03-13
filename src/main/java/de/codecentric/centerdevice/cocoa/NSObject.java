@@ -26,7 +26,7 @@ public class NSObject {
     return tempFilePath;
   }
 
-  private final long id;
+  private long id;
 
   protected NSObject(long id) {
     this.id = id;
@@ -35,4 +35,10 @@ public class NSObject {
   protected long getId() {
     return id;
   }
+
+  protected void setId(long id) {
+    this.id = id;
+  }
+
+  @Override public native String toString();
 }

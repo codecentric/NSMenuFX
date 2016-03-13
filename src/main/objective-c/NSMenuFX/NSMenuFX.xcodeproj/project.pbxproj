@@ -8,10 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		3D29586D1C8ED31E00C62169 /* libNSMenuFX.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3DAFAC921C8DF523009EB2DA /* libNSMenuFX.dylib */; };
-		3D5AFCB91C9461C0000E5BF3 /* NSMenuItemFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3D5AFCB91C9461C0000E5BF3 /* NSMenuItemFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */; };
 		3D5AFCBB1C94747D000E5BF3 /* NSMenuItemFX.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */; };
 		3D5AFCBF1C948251000E5BF3 /* NSObject+JObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */; };
 		3D5AFCC11C948263000E5BF3 /* NSObject+JObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5AFCC01C948263000E5BF3 /* NSObject+JObject.m */; };
+		3D97BCBD1C95A60800EB3CD5 /* NSApplicationFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D97BCBC1C95A60800EB3CD5 /* NSApplicationFX.m */; };
+		3D97BCC11C95A77B00EB3CD5 /* NSObjectUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D97BCC01C95A77B00EB3CD5 /* NSObjectUtils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3D97BCC31C95A8F200EB3CD5 /* NSObjectUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D97BCC21C95A78A00EB3CD5 /* NSObjectUtils.h */; };
+		3D97BCC61C95A98D00EB3CD5 /* NSStringUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D97BCC51C95A98D00EB3CD5 /* NSStringUtils.m */; };
+		3D97BCC81C95C22B00EB3CD5 /* NSObjectFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D97BCC71C95C22B00EB3CD5 /* NSObjectFX.m */; };
 		3DAFAC961C8DF523009EB2DA /* NSMenuFX.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DAFAC951C8DF523009EB2DA /* NSMenuFX.h */; };
 		3DAFAC981C8DF523009EB2DA /* NSMenuFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DAFAC971C8DF523009EB2DA /* NSMenuFX.m */; };
 /* End PBXBuildFile section */
@@ -34,6 +39,14 @@
 		3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMenuItemFX.h; sourceTree = "<group>"; };
 		3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JObject.h"; sourceTree = "<group>"; };
 		3D5AFCC01C948263000E5BF3 /* NSObject+JObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JObject.m"; sourceTree = "<group>"; };
+		3D97BCBC1C95A60800EB3CD5 /* NSApplicationFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSApplicationFX.m; sourceTree = "<group>"; };
+		3D97BCBE1C95A61900EB3CD5 /* NSApplicationFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSApplicationFX.h; sourceTree = "<group>"; };
+		3D97BCC01C95A77B00EB3CD5 /* NSObjectUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectUtils.m; sourceTree = "<group>"; };
+		3D97BCC21C95A78A00EB3CD5 /* NSObjectUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectUtils.h; sourceTree = "<group>"; };
+		3D97BCC41C95A97E00EB3CD5 /* NSStringUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSStringUtils.h; sourceTree = "<group>"; };
+		3D97BCC51C95A98D00EB3CD5 /* NSStringUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringUtils.m; sourceTree = "<group>"; };
+		3D97BCC71C95C22B00EB3CD5 /* NSObjectFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectFX.m; sourceTree = "<group>"; };
+		3D97BCC91C95C23900EB3CD5 /* NSObjectFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObjectFX.h; sourceTree = "<group>"; };
 		3DAFAC921C8DF523009EB2DA /* libNSMenuFX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libNSMenuFX.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DAFAC951C8DF523009EB2DA /* NSMenuFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMenuFX.h; sourceTree = "<group>"; };
 		3DAFAC971C8DF523009EB2DA /* NSMenuFX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSMenuFX.m; sourceTree = "<group>"; };
@@ -50,6 +63,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D97BCBF1C95A75F00EB3CD5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3D97BCC21C95A78A00EB3CD5 /* NSObjectUtils.h */,
+				3D97BCC01C95A77B00EB3CD5 /* NSObjectUtils.m */,
+				3D97BCC41C95A97E00EB3CD5 /* NSStringUtils.h */,
+				3D97BCC51C95A98D00EB3CD5 /* NSStringUtils.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		3DAFAC891C8DF523009EB2DA = {
 			isa = PBXGroup;
 			children = (
@@ -69,12 +93,17 @@
 		3DAFAC941C8DF523009EB2DA /* NSMenuFX */ = {
 			isa = PBXGroup;
 			children = (
+				3D97BCBF1C95A75F00EB3CD5 /* Utils */,
 				3DAFAC951C8DF523009EB2DA /* NSMenuFX.h */,
 				3DAFAC971C8DF523009EB2DA /* NSMenuFX.m */,
-				3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */,
 				3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */,
+				3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */,
 				3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */,
 				3D5AFCC01C948263000E5BF3 /* NSObject+JObject.m */,
+				3D97BCBE1C95A61900EB3CD5 /* NSApplicationFX.h */,
+				3D97BCBC1C95A60800EB3CD5 /* NSApplicationFX.m */,
+				3D97BCC91C95C23900EB3CD5 /* NSObjectFX.h */,
+				3D97BCC71C95C22B00EB3CD5 /* NSObjectFX.m */,
 			);
 			path = NSMenuFX;
 			sourceTree = "<group>";
@@ -88,6 +117,7 @@
 			files = (
 				3DAFAC961C8DF523009EB2DA /* NSMenuFX.h in Headers */,
 				3D5AFCBF1C948251000E5BF3 /* NSObject+JObject.h in Headers */,
+				3D97BCC31C95A8F200EB3CD5 /* NSObjectUtils.h in Headers */,
 				3D5AFCBB1C94747D000E5BF3 /* NSMenuItemFX.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,8 +180,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D5AFCB91C9461C0000E5BF3 /* NSMenuItemFX.m in Sources */,
+				3D97BCC61C95A98D00EB3CD5 /* NSStringUtils.m in Sources */,
 				3DAFAC981C8DF523009EB2DA /* NSMenuFX.m in Sources */,
 				3D5AFCC11C948263000E5BF3 /* NSObject+JObject.m in Sources */,
+				3D97BCC81C95C22B00EB3CD5 /* NSObjectFX.m in Sources */,
+				3D97BCC11C95A77B00EB3CD5 /* NSObjectUtils.m in Sources */,
+				3D97BCBD1C95A60800EB3CD5 /* NSApplicationFX.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
