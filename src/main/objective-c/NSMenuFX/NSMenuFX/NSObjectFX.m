@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 
 jstring Java_de_codecentric_centerdevice_cocoa_NSObject_toString(JNIEnv *env, jobject thisObj) {
-    NSObjectUtils* utils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSObject"];
-    NSObject* obj = [utils getId:thisObj];
+    NSObjectUtils* utils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSObject"];
+    NSObject* obj = [utils getId:env obj:thisObj];
     return [NSStringUtils convertNSStringToJava:env nsString:[obj description]];
 }

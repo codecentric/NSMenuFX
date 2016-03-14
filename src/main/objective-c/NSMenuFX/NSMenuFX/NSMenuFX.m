@@ -11,30 +11,35 @@
 
 @implementation NSMenuFX
 
-+(NSObjectUtils*) getUtils:(JNIEnv*)env {
-    return [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSMenu"];
+static NSObjectUtils* utils = nil;
+
++(NSObjectUtils*) getUtils {
+    if (utils == nil) {
+        utils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSMenu"];
+    }
+    return utils;
 }
 
 +(NSMenu*) fromJObject:(JNIEnv*)env obj:(jobject)obj {
-    return [[self getUtils:env] getId:obj];
+    return [[self getUtils] getId:env obj:obj];
 }
 
 @end
 
 jobject Java_de_codecentric_centerdevice_cocoa_NSMenu_alloc(JNIEnv *env, jobject thisObj) {
-    return [[NSMenuFX getUtils:env] createJObject:[NSMenu alloc]];
+    return [[NSMenuFX getUtils] createJObject:env obj:[NSMenu alloc]];
 }
 
 void Java_de_codecentric_centerdevice_cocoa_NSMenu_release(JNIEnv *env, jobject thisObj) {
-    [[NSMenuFX getUtils:env] releaseObject:thisObj];
+    [[NSMenuFX getUtils] releaseObject:env obj:thisObj];
 }
 
 jobject Java_de_codecentric_centerdevice_cocoa_NSMenu_init(JNIEnv *env, jobject thisObj, jstring title) {
-    NSObjectUtils* utils = [NSMenuFX getUtils:env];
-    NSMenu* menu = [utils getId:thisObj];
+    NSObjectUtils* utils = [NSMenuFX getUtils];
+    NSMenu* menu = [utils getId:env obj:thisObj];
     id result = [menu initWithTitle:[NSStringUtils convertJavaStringToCocoa:env javaString:title]];
     if (menu != result) {
-        [utils updateId:thisObj newId:result];
+        [utils updateId:env obj:thisObj newId:result];
     }
     return thisObj;
 }
@@ -53,19 +58,19 @@ void Java_de_codecentric_centerdevice_cocoa_NSMenu_removeAllItems(JNIEnv *env, j
 }
 
 void Java_de_codecentric_centerdevice_cocoa_NSMenu_addItem(JNIEnv *env, jobject thisObj, jobject item) {
-    NSObjectUtils* menuItemUtils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSMenuItem"];
-    NSMenuItem* menuItem = [menuItemUtils getId:item];
+    NSObjectUtils* menuItemUtils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSMenuItem"];
+    NSMenuItem* menuItem = [menuItemUtils getId:env obj:item];
     [[NSMenuFX fromJObject:env obj:thisObj] addItem:menuItem];
 }
 
 void Java_de_codecentric_centerdevice_cocoa_NSMenu_insertItem(JNIEnv *env, jobject thisObj, jobject item, jint index) {
-    NSObjectUtils* menuItemUtils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSMenuItem"];
-    NSMenuItem* menuItem = [menuItemUtils getId:item];
+    NSObjectUtils* menuItemUtils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSMenuItem"];
+    NSMenuItem* menuItem = [menuItemUtils getId:env obj:item];
     [[NSMenuFX fromJObject:env obj:thisObj] insertItem:menuItem atIndex:index];
 }
 
 jobject Java_de_codecentric_centerdevice_cocoa_NSMenu_itemAtIndex(JNIEnv *env, jobject thisObj, jint index) {
-    NSObjectUtils* menuItemUtils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSMenuItem"];
+    NSObjectUtils* menuItemUtils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSMenuItem"];
     NSMenu* menu = [NSMenuFX fromJObject:env obj:thisObj];
-    return [menuItemUtils createJObject:[menu itemAtIndex:index]];
+    return [menuItemUtils createJObject:env obj:[menu itemAtIndex:index]];
 }

@@ -10,9 +10,14 @@
 #define NSApplicationFX_h
 
 #import <Foundation/Foundation.h>
+#import "NSObjectUtils.h"
 #import <JavaVM/jni.h>
 
 @interface NSApplicationFX : NSObject
+
++(NSObjectUtils*) getUtils;
+
++(NSApplication*) fromJObject:(JNIEnv*)env obj:(jobject)obj;
 
 @end
 

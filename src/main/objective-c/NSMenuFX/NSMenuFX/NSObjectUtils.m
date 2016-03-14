@@ -10,42 +10,40 @@
 
 @implementation NSObjectUtils
 
-@synthesize env;
 @synthesize className;
 
--(id)init:(JNIEnv*)jniEnv name:(const char*)name {
+-(id)init:(const char*)name {
     self = [super init];
     if (self) {
-        env = jniEnv;
         className = name;
     }
     return self;
 }
 
--(jobject) createJObject:(id) item {
-    if (item == nil) {
+-(jobject) createJObject:(JNIEnv*)env obj:(id)obj {
+    if (obj == nil) {
         return nil;
     }
     
     jclass klass = (*env)->FindClass(env, className);
     jmethodID constructor = (*env)->GetMethodID(env, klass, "<init>", "(J)V");
-    return (*env)->NewObject(env, klass, constructor, (long) [item retain]);
+    return (*env)->NewObject(env, klass, constructor, (long) [obj retain]);
 }
 
--(id)getId:(jobject) obj {
+-(id)getId:(JNIEnv*)env obj:(jobject) obj {
     jclass klass = (*env)->FindClass(env, className);
     jmethodID getId = (*env)->GetMethodID(env, klass, "getId", "()J");
     return (id) (*env)->CallLongMethod(env, obj, getId);;
 }
 
--(void)updateId:(jobject)obj newId:(id)newId {
+-(void)updateId:(JNIEnv*)env obj:(jobject)obj newId:(id)newId {
     jclass klass = (*env)->FindClass(env, className);
     jmethodID setId = (*env)->GetMethodID(env, klass, "setId", "(J)V");
     (*env)->CallVoidMethod(env, obj, setId, (long) newId);
 }
 
--(void)releaseObject:(jobject) obj {
-    [[self getId:obj] release];
+-(void)releaseObject:(JNIEnv*)env obj:(jobject) obj {
+    [[self getId:env obj:obj] release];
 }
 
 @end

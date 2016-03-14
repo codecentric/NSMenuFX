@@ -10,34 +10,42 @@
 #import "NSObjectUtils.h"
 #import <AppKit/AppKit.h>
 #include <JavaVM/jni.h>
-    
+
+@implementation NSApplicationFX
+
+static NSObjectUtils* utils = nil;
+
++(NSObjectUtils*) getUtils {
+    if (utils == nil) {
+        utils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSApplication"];
+    }
+    return utils;
+}
+
++(NSApplication*) fromJObject:(JNIEnv*)env obj:(jobject)obj {
+    return [[self getUtils] getId:env obj:obj];
+}
+
+@end
+
 jobject Java_de_codecentric_centerdevice_cocoa_NSApplication_sharedApplication(JNIEnv *env, jobject thisObj) {
-    NSObjectUtils* utils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSApplication"];
-    return [utils createJObject:[NSApplication sharedApplication]];
+    return [[NSApplicationFX getUtils] createJObject:env obj:[NSApplication sharedApplication]];
 }
 
 void Java_de_codecentric_centerdevice_cocoa_NSApplication_hideOtherApplications(JNIEnv *env, jobject thisObj) {
-    NSObjectUtils* utils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSApplication"];
-    NSApplication* application = [utils getId:thisObj];
-    [application hideOtherApplications:nil];
+    [[NSApplicationFX fromJObject:env obj:thisObj] hideOtherApplications:nil];
 }
 
 void Java_de_codecentric_centerdevice_cocoa_NSApplication_unhideAllApplications(JNIEnv *env, jobject thisObj) {
-    NSObjectUtils* utils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSApplication"];
-    NSApplication* application = [utils getId:thisObj];
-    [application unhideAllApplications:nil];
+    [[NSApplicationFX fromJObject:env obj:thisObj] unhideAllApplications:nil];
 }
 
 void Java_de_codecentric_centerdevice_cocoa_NSApplication_hide(JNIEnv *env, jobject thisObj) {
-    NSObjectUtils* utils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSApplication"];
-    NSApplication* application = [utils getId:thisObj];
-    [application hide:nil];
+    [[NSApplicationFX fromJObject:env obj:thisObj] hide:nil];
 }
 
 jobject Java_de_codecentric_centerdevice_cocoa_NSApplication_mainMenu(JNIEnv *env, jobject thisObj) {
-    NSObjectUtils* appUtils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSApplication"];
-    NSObjectUtils* menuUtils = [[NSObjectUtils alloc] init:env name:"de/codecentric/centerdevice/cocoa/NSMenu"];
-    NSApplication* application = [appUtils getId:thisObj];
-    NSMenu* menu = [application mainMenu];
-    return [menuUtils createJObject:menu];
+    NSObjectUtils* menuUtils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSMenu"];
+    NSMenu* menu = [[NSApplicationFX fromJObject:env obj:thisObj] mainMenu];
+    return [menuUtils createJObject:env obj:menu];
 }

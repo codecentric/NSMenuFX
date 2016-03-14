@@ -15,7 +15,7 @@
 
 @interface NSMenuItemFX : NSObject
 
-+(NSObjectUtils*) getUtils:(JNIEnv*)env;
++(NSObjectUtils*) getUtils;
 
 +(id) fromJObject:(JNIEnv*)env obj:(jobject)obj;
 

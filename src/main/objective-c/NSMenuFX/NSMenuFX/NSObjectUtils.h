@@ -14,18 +14,17 @@
 
 @interface NSObjectUtils : NSObject
 
-@property (nonatomic, readonly) JNIEnv* env;
 @property (nonatomic, readonly) const char* className;
 
--(id)init:(JNIEnv*)jniEnv name:(const char*)name;
+-(id)init:(const char*)name;
 
--(jobject)createJObject:(id) item;
+-(jobject)createJObject:(JNIEnv*)env obj:(id)obj;
 
--(id)getId:(jobject)obj;
+-(id)getId:(JNIEnv*)env obj:(jobject)obj;
 
--(void)updateId:(jobject)obj newId:(id)newId;
+-(void)updateId:(JNIEnv*)env obj:(jobject)obj newId:(id)newId;
 
--(void)releaseObject:(jobject) obj;
+-(void)releaseObject:(JNIEnv*)env obj:(jobject) obj;
 
 @end
 
