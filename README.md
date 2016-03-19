@@ -29,7 +29,7 @@ Add the following lines to the dependencies in your `pom.xml`
 	<dependency>
     	<groupId>de.codecentric.centerdevice</groupId>
     	<artifactId>centerdevice-nsmenufx</artifactId>
-    	<version>2.0.0</version>
+    	<version>2.1.0</version>
     </dependency>
 
 ## Usage Examples
