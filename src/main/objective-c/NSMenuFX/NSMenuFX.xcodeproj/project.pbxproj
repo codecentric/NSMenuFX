@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D29586D1C8ED31E00C62169 /* libNSMenuFX.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3DAFAC921C8DF523009EB2DA /* libNSMenuFX.dylib */; };
+		3D323F831C97148000418777 /* NSApplicationDelegateFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D323F821C97148000418777 /* NSApplicationDelegateFX.m */; };
 		3D5AFCB91C9461C0000E5BF3 /* NSMenuItemFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */; };
 		3D5AFCBB1C94747D000E5BF3 /* NSMenuItemFX.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */; };
 		3D5AFCBF1C948251000E5BF3 /* NSObject+JObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */; };
@@ -35,6 +36,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3D323F821C97148000418777 /* NSApplicationDelegateFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSApplicationDelegateFX.m; sourceTree = "<group>"; };
+		3D323F851C9714AC00418777 /* NSApplicationDelegateFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSApplicationDelegateFX.h; sourceTree = "<group>"; };
 		3D5AFCB81C9461C0000E5BF3 /* NSMenuItemFX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMenuItemFX.m; sourceTree = "<group>"; };
 		3D5AFCBA1C9461D5000E5BF3 /* NSMenuItemFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMenuItemFX.h; sourceTree = "<group>"; };
 		3D5AFCBE1C948251000E5BF3 /* NSObject+JObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JObject.h"; sourceTree = "<group>"; };
@@ -63,6 +66,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D323F811C97146C00418777 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				3D323F821C97148000418777 /* NSApplicationDelegateFX.m */,
+				3D323F851C9714AC00418777 /* NSApplicationDelegateFX.h */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
 		3D97BCBF1C95A75F00EB3CD5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +105,7 @@
 		3DAFAC941C8DF523009EB2DA /* NSMenuFX */ = {
 			isa = PBXGroup;
 			children = (
+				3D323F811C97146C00418777 /* Delegate */,
 				3D97BCBF1C95A75F00EB3CD5 /* Utils */,
 				3DAFAC951C8DF523009EB2DA /* NSMenuFX.h */,
 				3DAFAC971C8DF523009EB2DA /* NSMenuFX.m */,
@@ -181,6 +194,7 @@
 			files = (
 				3D5AFCB91C9461C0000E5BF3 /* NSMenuItemFX.m in Sources */,
 				3D97BCC61C95A98D00EB3CD5 /* NSStringUtils.m in Sources */,
+				3D323F831C97148000418777 /* NSApplicationDelegateFX.m in Sources */,
 				3DAFAC981C8DF523009EB2DA /* NSMenuFX.m in Sources */,
 				3D5AFCC11C948263000E5BF3 /* NSObject+JObject.m in Sources */,
 				3D97BCC81C95C22B00EB3CD5 /* NSObjectFX.m in Sources */,
