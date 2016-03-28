@@ -26,6 +26,8 @@
 
 -(void)releaseObject:(JNIEnv*)env obj:(jobject) obj;
 
+-(void)releaseObject:(id)nsObj;
+
 @end
 
 #endif /* NSObjectUtils_h */

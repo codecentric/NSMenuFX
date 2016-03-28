@@ -35,5 +35,6 @@ public class NSMenuItemTest {
     Assert.assertNotNull(item);
     Assert.assertNotEquals(0, item.getId());
     Assert.assertTrue(item.hasSubmenu());
+    Assert.assertEquals(submenu.getId(), item.submenu().getId());
   }
 }

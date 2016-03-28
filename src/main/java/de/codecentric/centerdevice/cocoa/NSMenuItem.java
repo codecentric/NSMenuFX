@@ -1,9 +1,9 @@
 package de.codecentric.centerdevice.cocoa;
 
-import java.util.function.Consumer;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class NSMenuItem extends NSObject {
-  private Consumer<NSMenuItem> callback;
 
   protected NSMenuItem(long id) {
     super(id);
@@ -11,16 +11,11 @@ public class NSMenuItem extends NSObject {
 
   public static native NSMenuItem alloc();
 
-  public NSMenuItem init(String title, Consumer<NSMenuItem> callback, String keyEquivalent) {
-    this.callback = callback;
-    return init(title, keyEquivalent);
+  public NSMenuItem init(String title) {
+    return init(title, null, "");
   }
 
-  private native NSMenuItem init(String title, String keyEquivalent);
-
-  protected void callAction() {
-    this.callback.accept(this);
-  }
+  public native NSMenuItem init(String title, EventHandler<ActionEvent> callback, String keyEquivalent);
 
   public native String title();
 
@@ -29,6 +24,8 @@ public class NSMenuItem extends NSObject {
   public native void setSubmenu(NSMenu menu);
 
   public native NSMenu submenu();
+
+  public native void setTitle(String title);
 
   private native void release();
 

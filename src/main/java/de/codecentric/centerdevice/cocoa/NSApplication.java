@@ -13,4 +13,6 @@ public class NSApplication extends NSObject {
   public native void unhideAllApplications();
 
   public native void hideOtherApplications();
+
+  public native NSMenu mainMenu();
 }

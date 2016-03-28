@@ -11,11 +11,8 @@
 
 #import <AppKit/AppKit.h>
 #import <JavaVM/jni.h>
-#import "NSObjectUtils.h"
 
 @interface NSMenuItemFX : NSObject
-
-+(NSObjectUtils*) getUtils;
 
 +(id) fromJObject:(JNIEnv*)env obj:(jobject)obj;
 
@@ -30,7 +27,7 @@ extern "C" {
     
     JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenuItem_release(JNIEnv *env, jobject thisObj);
     
-    JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenuItem_init(JNIEnv *env, jobject thisObj, jstring title, jstring keyEquivalent);
+    JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenuItem_init(JNIEnv *env, jobject thisObj, jstring title, jobject eventHandler, jstring keyEquivalent);
     
     JNIEXPORT jstring JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenuItem_title(JNIEnv *env, jobject thisObj);
 
@@ -40,6 +37,7 @@ extern "C" {
     
     JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenuItem_setSubmenu(JNIEnv *env, jobject thisObj, jobject subMenu);
 
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenuItem_setTitle(JNIEnv *env, jobject thisObj, jstring title);
 #ifdef __cplusplus
 }
 #endif

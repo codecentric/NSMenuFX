@@ -29,12 +29,20 @@ extern "C" {
     
     JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_init(JNIEnv *env, jobject thisObj, jstring title);
     
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_setAutoenablesItems(JNIEnv *env, jobject thisObj, jboolean autoEnable);
+    
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_setTitle(JNIEnv *env, jobject thisObj, jstring title);
+    
     JNIEXPORT jstring JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_title(JNIEnv *env, jobject thisObj);
     
     JNIEXPORT jlong JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_numberOfItems(JNIEnv *env, jobject thisObj);
     
     JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_removeAllItems(JNIEnv *env, jobject thisObj);
-        
+    
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_removeItem(JNIEnv *env, jobject thisObj, jobject menuItem);
+    
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_removeItemAtIndex(JNIEnv *env, jobject thisObj, jint index);
+    
     JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_addItem(JNIEnv *env, jobject thisObj, jobject item);
     
     JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSMenu_insertItem(JNIEnv *env, jobject thisObj, jobject item, jint index);

@@ -8,6 +8,8 @@
 
 #import "NSObjectUtils.h"
 
+// NOTE: This class has reference counting disabled!
+// All objects need to be released manually.
 @implementation NSObjectUtils
 
 @synthesize className;
@@ -43,7 +45,11 @@
 }
 
 -(void)releaseObject:(JNIEnv*)env obj:(jobject) obj {
-    [[self getId:env obj:obj] release];
+    [self releaseObject:[self getId:env obj:obj]];
+}
+
+-(void)releaseObject:(id)nsObj {
+    [nsObj release];
 }
 
 @end

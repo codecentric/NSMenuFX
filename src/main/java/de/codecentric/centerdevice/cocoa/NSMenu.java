@@ -1,7 +1,5 @@
 package de.codecentric.centerdevice.cocoa;
 
-import java.util.function.Consumer;
-
 /**
  * Created by jan on 13/03/16.
  */
@@ -16,11 +14,21 @@ public class NSMenu extends NSObject {
 
   public native String title();
 
+  public native void setTitle(String title);
+
   public native void removeAllItems();
+
+  public native void removeItem(NSMenuItem item);
+
+  public native void removeItemAtIndex(int index);
 
   public native void addItem(NSMenuItem item);
 
   public native void insertItem(NSMenuItem item, int index);
 
   public native NSMenuItem itemAtIndex(int index);
+
+  public native long numberOfItems();
+
+  public native void setAutoenablesItems(boolean autoenablesItems);
 }

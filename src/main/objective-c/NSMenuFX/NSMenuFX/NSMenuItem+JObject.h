@@ -12,7 +12,15 @@
 #import <JavaVM/jni.h>
 
 @interface NSMenuItem (NSMenuItemWithJObject)
-@property (nonatomic) jobject jObject;
+
+-(jobject) jObject;
+
+-(JNIEnv*) jniEnv;
+
+-(void) setJObject:(JNIEnv*)env jObject:(jobject)jobject;
+
+-(void) unsetJObject:(JNIEnv*)env;
+
 @end
 
 #endif /* NSObject_JObject_h */
