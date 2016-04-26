@@ -8,6 +8,7 @@
 
 #import "NSApplicationFX.h"
 #import "NSObjectUtils.h"
+#import "NSObjectUtilsFactory.h"
 #import <AppKit/AppKit.h>
 #include <JavaVM/jni.h>
 
@@ -45,7 +46,7 @@ void Java_de_codecentric_centerdevice_cocoa_NSApplication_hide(JNIEnv *env, jobj
 }
 
 jobject Java_de_codecentric_centerdevice_cocoa_NSApplication_mainMenu(JNIEnv *env, jobject thisObj) {
-    NSObjectUtils* menuUtils = [[NSObjectUtils alloc] init:"de/codecentric/centerdevice/cocoa/NSMenu"];
+    NSObjectUtils* menuUtils = [NSObjectUtilsFactory getInstance:JNI_NSMenu];
     NSMenu* menu = [[NSApplicationFX fromJObject:env obj:thisObj] mainMenu];
     return [menuUtils createJObject:env obj:menu];
 }
