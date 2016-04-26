@@ -45,6 +45,26 @@ void Java_de_codecentric_centerdevice_cocoa_NSApplication_hide(JNIEnv *env, jobj
     [[NSApplicationFX fromJObject:env obj:thisObj] hide:nil];
 }
 
+void Java_de_codecentric_centerdevice_cocoa_NSApplication_setWindowsMenu(JNIEnv *env, jobject thisObj, jobject menu) {
+    NSObjectUtils* menuUtils = [NSObjectUtilsFactory getInstance:JNI_NSMenu];
+    [[NSApplicationFX fromJObject:env obj:thisObj] setWindowsMenu:[menuUtils getId:env obj:menu]];
+}
+
+jobject Java_de_codecentric_centerdevice_cocoa_NSApplication_windowsMenu(JNIEnv *env, jobject thisObj) {
+    NSObjectUtils* menuUtils = [NSObjectUtilsFactory getInstance:JNI_NSMenu];
+    return [menuUtils createJObject:env obj:[[NSApplicationFX fromJObject:env obj:thisObj] windowsMenu]];
+}
+
+void Java_de_codecentric_centerdevice_cocoa_NSApplication_setHelpMenu(JNIEnv *env, jobject thisObj, jobject menu) {
+    NSObjectUtils* menuUtils = [NSObjectUtilsFactory getInstance:JNI_NSMenu];
+    [[NSApplicationFX fromJObject:env obj:thisObj] setHelpMenu:[menuUtils getId:env obj:menu]];
+}
+
+jobject Java_de_codecentric_centerdevice_cocoa_NSApplication_helpMenu(JNIEnv *env, jobject thisObj) {
+    NSObjectUtils* menuUtils = [NSObjectUtilsFactory getInstance:JNI_NSMenu];
+    return [menuUtils createJObject:env obj:[[NSApplicationFX fromJObject:env obj:thisObj] helpMenu]];
+}
+
 jobject Java_de_codecentric_centerdevice_cocoa_NSApplication_mainMenu(JNIEnv *env, jobject thisObj) {
     NSObjectUtils* menuUtils = [NSObjectUtilsFactory getInstance:JNI_NSMenu];
     NSMenu* menu = [[NSApplicationFX fromJObject:env obj:thisObj] mainMenu];

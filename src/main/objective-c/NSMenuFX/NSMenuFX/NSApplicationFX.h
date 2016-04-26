@@ -30,6 +30,14 @@ extern "C" {
     
     JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSApplication_hide(JNIEnv *env, jobject thisObj);
     
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSApplication_setWindowsMenu(JNIEnv *env, jobject thisObj, jobject menu);
+    
+    JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSApplication_windowsMenu(JNIEnv *env, jobject thisObj);
+    
+    JNIEXPORT void JNICALL Java_de_codecentric_centerdevice_cocoa_NSApplication_setHelpMenu(JNIEnv *env, jobject thisObj, jobject menu);
+    
+    JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSApplication_helpMenu(JNIEnv *env, jobject thisObj);
+    
     JNIEXPORT jobject JNICALL Java_de_codecentric_centerdevice_cocoa_NSApplication_mainMenu(JNIEnv *env, jobject thisObj);
     
 #ifdef __cplusplus

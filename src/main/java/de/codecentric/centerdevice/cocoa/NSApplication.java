@@ -14,5 +14,13 @@ public class NSApplication extends NSObject {
 
   public native void hideOtherApplications();
 
+  public native void setWindowsMenu(NSMenu windowsMenu);
+
+  public native NSMenu windowsMenu();
+
+  public native void setHelpMenu(NSMenu helpMenu);
+
+  public native NSMenu helpMenu();
+
   public native NSMenu mainMenu();
 }
