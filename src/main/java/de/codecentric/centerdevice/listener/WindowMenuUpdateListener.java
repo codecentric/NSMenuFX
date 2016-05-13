@@ -1,52 +1,83 @@
 package de.codecentric.centerdevice.listener;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.sun.javafx.stage.StageHelper;
-
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 public class WindowMenuUpdateListener implements ListChangeListener<Stage> {
 
 	private final WeakReference<Menu> windowMenu;
-	private final List<MenuItem> createdMenuItems;
+	private final Map<Stage, CheckMenuItem> createdMenuItems;
+	private final ObservableList<Stage> stages;
 
 	public WindowMenuUpdateListener(Menu windowMenu) {
-		this.windowMenu = new WeakReference<Menu>(windowMenu);
-		createdMenuItems = new ArrayList<>();
+		this.windowMenu = new WeakReference<>(windowMenu);
+		createdMenuItems = new HashMap<>();
 
-		updateWindowMenuItems();
+		addItemsToMenu(StageHelper.getStages());
+
+		stages = FXCollections.observableArrayList(stage -> new Observable[] {stage.focusedProperty()});
+		Bindings.bindContent(stages, StageHelper.getStages());
+
+		stages.addListener((Change <? extends Stage> c) -> checkFocusedStage());
+	}
+
+	private void checkFocusedStage() {
+		Optional<Stage> focusedStage = stages.stream().filter(Stage::isFocused).findFirst();
+		createdMenuItems.entrySet().forEach((entry) ->
+				entry.getValue().setSelected(focusedStage.isPresent() && focusedStage.get().equals(entry.getKey())));
 	}
 
 	@Override
 	public void onChanged(ListChangeListener.Change<? extends Stage> c) {
-		updateWindowMenuItems();
-	}
-
-	protected void updateWindowMenuItems() {
-		Menu menu = windowMenu.get();
-		if (menu != null) {
-			menu.getItems().removeAll(createdMenuItems);
-			StageHelper.getStages().forEach(stage -> addWindowMenuItem(stage));
+		while (c.next()) {
+			updateWindowMenuItems(c.getAddedSubList(), c.getRemoved());
 		}
 	}
 
-	private void addWindowMenuItem(Stage stage) {
+	private void updateWindowMenuItems(List<? extends Stage> add, List<? extends Stage> remove) {
+		removeItemsFromMenu(remove);
+		addItemsToMenu(add);
+	}
+
+	private void addItemsToMenu(List<? extends Stage> add) {
 		Menu menu = windowMenu.get();
-		if (menu != null) {
-			addWindowMenuItem(stage, menu);
+		if (add != null && menu != null) {
+			add.forEach(stage -> addWindowMenuItem(stage, menu));
 		}
+	}
+
+	private void removeItemsFromMenu(List<? extends Stage> remove) {
+		Menu menu = windowMenu.get();
+		if (remove != null && menu != null) {
+      remove.forEach(stage -> removeWindowMenuItem(stage, menu));
+    }
+	}
+
+	private void removeWindowMenuItem(Stage stage, Menu menu) {
+		MenuItem menuItem = createdMenuItems.get(stage);
+		if (menuItem != null) {
+      menu.getItems().remove(menuItem);
+    }
 	}
 
 	private void addWindowMenuItem(Stage stage, Menu menu) {
-		MenuItem item = new MenuItem(stage.getTitle());
+		CheckMenuItem item = new CheckMenuItem(stage.getTitle());
 		item.setOnAction(event -> stage.toFront());
-		createdMenuItems.add(item);
+		createdMenuItems.put(stage, item);
 		menu.getItems().add(item);
 	}
 

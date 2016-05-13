@@ -2,6 +2,7 @@ package de.codecentric.centerdevice.glass;
 
 import com.sun.glass.ui.Application;
 import de.codecentric.centerdevice.cocoa.NSApplication;
+import javafx.application.Platform;
 
 public class MacApplicationAdapter {
 	private NSApplication nativeAdapter = NSApplication.sharedApplication();
@@ -29,5 +30,6 @@ public class MacApplicationAdapter {
 		if (eh != null) {
 			eh.handleQuitAction(Application.GetApplication(), System.nanoTime());
 		}
+		Platform.exit();
 	}
 }
