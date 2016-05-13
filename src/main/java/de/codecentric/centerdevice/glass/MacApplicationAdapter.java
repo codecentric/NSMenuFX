@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandle;
 import com.sun.glass.ui.Application;
 
 import de.codecentric.centerdevice.util.ReflectionUtils;
+import javafx.application.Platform;
 
 public class MacApplicationAdapter {
 	private MethodHandle hide;
@@ -38,5 +39,6 @@ public class MacApplicationAdapter {
 		if (eh != null) {
 			eh.handleQuitAction(Application.GetApplication(), System.nanoTime());
 		}
+		Platform.exit();
 	}
 }
