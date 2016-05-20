@@ -1,7 +1,7 @@
 # NSMenuFX
 
 A simple library to customize the OS X menu bar to give your JavaFX app 
-a more native look and feel.  
+a more [native look and feel](https://developer.apple.com/library/mac/documentation/UserExperience/Conceptual/OSXHIGuidelines/MenuBarMenus.html).  
 
 NSMenuFX helps you to
 
