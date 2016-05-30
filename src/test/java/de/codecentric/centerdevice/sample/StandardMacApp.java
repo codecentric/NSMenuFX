@@ -43,7 +43,7 @@ public class StandardMacApp extends Application {
 		// TBD: services menu
 		Menu appMenu = new Menu(appName); // Name for appMenu can't be set at
 											// Runtime
-		MenuItem aboutItem = new MenuItem("About");
+		MenuItem aboutItem = tk.createAboutMenuItem(appName);
 		MenuItem prefsItem = new MenuItem("Preferences...");
 		appMenu.getItems().addAll(aboutItem, new SeparatorMenuItem(), prefsItem, new SeparatorMenuItem(),
 				tk.createHideMenuItem(appName), tk.createHideOthersMenuItem(), tk.createUnhideAllMenuItem(),

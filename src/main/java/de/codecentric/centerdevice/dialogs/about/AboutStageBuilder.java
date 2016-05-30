@@ -1,22 +1,29 @@
 package de.codecentric.centerdevice.dialogs.about;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class AboutStageBuilder {
+
+  public static final String DEFAULT_APP_ICON =
+      "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns";
+  public static final int DEFAULT_ICON_SIZE = 80;
+
   private final Stage stage;
   private Label version;
   private Label name;
   private Label copyright;
-  private WebView credits;
+  private Node credits;
   private ImageView image;
 
   private AboutStageBuilder(Stage stage) {
@@ -99,21 +106,30 @@ public class AboutStageBuilder {
   }
   
   public AboutStageBuilder withHtml(String html) {
-    credits = createWebview();
-    credits.getEngine().loadContent(html);
+    WebView creditsView = createWebview();
+    creditsView.getEngine().loadContent(html);
+    setCredits(creditsView);
 
     return this;
   }
 
   private WebView createWebview() {
     WebView view = new WebView();
-    view.setPrefHeight(150);
+    view.setPrefHeight(140);
     return view;
   }
 
+  private void setCredits(Node view) {
+    BorderPane pane = new BorderPane();
+    pane.setCenter(view);
+    pane.getStyleClass().add("credits");
+    this.credits = pane;
+  }
+
   public AboutStageBuilder withUrl(String url) {
-    credits = createWebview();
-    credits.getEngine().load(url);
+    WebView creditsView = createWebview();
+    creditsView.getEngine().load(url);
+    setCredits(creditsView);
 
     return this;
   }
@@ -125,9 +141,13 @@ public class AboutStageBuilder {
   }
 
   public AboutStageBuilder withImage(Image image) {
+    return withImage(image, DEFAULT_ICON_SIZE, DEFAULT_ICON_SIZE);
+  }
+
+  public AboutStageBuilder withImage(Image image, double width, double height) {
     this.image = new ImageView(image);
-    this.image.setFitHeight(100);
-    this.image.setFitWidth(100);
+    this.image.setFitWidth(width);
+    this.image.setFitHeight(height);
 
     return this;
   }
