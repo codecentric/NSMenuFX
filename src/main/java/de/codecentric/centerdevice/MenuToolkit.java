@@ -33,8 +33,6 @@ import java.util.Locale;
 
 public class MenuToolkit {
 	private static final String APP_NAME = "Apple";
-	private static final String DEFAULT_APP_ICON =
-			"/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns";
 
 	private final TKSystemMenuAdapter systemMenuAdapter;
 	private final MacApplicationAdapter applicationAdapter;
@@ -65,24 +63,35 @@ public class MenuToolkit {
 	}
 
 	public Menu createDefaultApplicationMenu(String appName) {
-		return new Menu(APP_NAME, null, createAboutMenuItem(appName), new SeparatorMenuItem(), createHideMenuItem(appName), createHideOthersMenuItem(),
+		return createDefaultApplicationMenu(appName, createDefaultAboutStage(appName));
+	}
+
+	public Menu createDefaultApplicationMenu(String appName, Stage aboutStage) {
+		return new Menu(APP_NAME, null, createAboutMenuItem(appName, aboutStage), new SeparatorMenuItem(), createHideMenuItem(appName), createHideOthersMenuItem(),
 				createUnhideAllMenuItem(), new SeparatorMenuItem(), createQuitMenuItem(appName));
 	}
 
 	public MenuItem createAboutMenuItem(String appName) {
-		MenuItem about = new MenuItem(labelMaker.getLabel(LabelName.ABOUT, appName));
+		return createAboutMenuItem(appName, createDefaultAboutStage(appName));
+	}
+
+	private Stage createDefaultAboutStage(String appName) {
 		AboutStageBuilder stageBuilder = AboutStageBuilder.start(labelMaker.getLabel(LabelName.ABOUT, appName))
 				.withAppName(appName).withCloseOnFocusLoss().withCopyright("Copyright \u00A9 " + Calendar
 						.getInstance().get(Calendar.YEAR));
 
 		try {
-			IcnsParser parser = IcnsParser.forFile(DEFAULT_APP_ICON);
-			stageBuilder.withImage(new Image(parser.getIconStream(IcnsType.ic08)));
+			IcnsParser parser = IcnsParser.forFile(AboutStageBuilder.DEFAULT_APP_ICON);
+			stageBuilder = stageBuilder.withImage(new Image(parser.getIconStream(IcnsType.ic08)));
 		} catch (IOException e) {
 			// Too bad, cannot load dummy image
 		}
 
-		Stage aboutStage = stageBuilder.build();
+		return stageBuilder.build();
+	}
+
+	public MenuItem createAboutMenuItem(String appName, Stage aboutStage) {
+		MenuItem about = new MenuItem(labelMaker.getLabel(LabelName.ABOUT, appName));
 		about.setOnAction(event -> aboutStage.show());
 		return about;
 	}

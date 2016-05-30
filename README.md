@@ -1,7 +1,7 @@
 # NSMenuFX
 
 A simple library to customize the OS X menu bar to give your JavaFX app 
-a more native look and feel.  
+a more [native look and feel](https://developer.apple.com/library/mac/documentation/UserExperience/Conceptual/OSXHIGuidelines/MenuBarMenus.html).  
 
 NSMenuFX helps you to
 
@@ -29,7 +29,7 @@ Add the following lines to the dependencies in your `pom.xml`
 	<dependency>
     	<groupId>de.codecentric.centerdevice</groupId>
     	<artifactId>centerdevice-nsmenufx</artifactId>
-    	<version>2.1.0</version>
+    	<version>2.1.1</version>
     </dependency>
 
 ## Usage Examples
