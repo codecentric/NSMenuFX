@@ -70,3 +70,8 @@ jobject Java_de_codecentric_centerdevice_cocoa_NSApplication_mainMenu(JNIEnv *en
     NSMenu* menu = [[NSApplicationFX fromJObject:env obj:thisObj] mainMenu];
     return [menuUtils createJObject:env obj:menu];
 }
+
+void Java_de_codecentric_centerdevice_cocoa_NSApplication_setMainMenu(JNIEnv *env, jobject thisObj, jobject menu) {
+    NSObjectUtils* menuUtils = [NSObjectUtilsFactory getInstance:JNI_NSMenu];
+    [[NSApplicationFX fromJObject:env obj:thisObj] setMainMenu:[menuUtils getId:env obj:menu]];
+}

@@ -23,4 +23,6 @@ public class NSApplication extends NSObject {
   public native NSMenu helpMenu();
 
   public native NSMenu mainMenu();
+
+  public native void setMainMenu(NSMenu mainMenu);
 }
