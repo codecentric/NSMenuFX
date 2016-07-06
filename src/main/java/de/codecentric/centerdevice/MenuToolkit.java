@@ -194,6 +194,10 @@ public class MenuToolkit {
 		StageHelper.getStages().addListener(new WindowMenuUpdateListener(menu));
 	}
 
+	public void setForceQuitOnCmdQ(boolean forceQuit) {
+		applicationAdapter.setForceQuitOnCmdQ(forceQuit);
+	}
+
 	protected Menu extractApplicationMenu(MenuBar menuBar) {
 		return menuBar.getMenus().get(0);
 	}

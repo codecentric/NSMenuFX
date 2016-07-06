@@ -14,6 +14,8 @@ public class MacApplicationAdapter {
 
 	private Application app;
 
+	private boolean forceQuitOnCmdQ = true;
+
 	public MacApplicationAdapter() throws ReflectiveOperationException {
 		app = Application.GetApplication();
 
@@ -39,6 +41,12 @@ public class MacApplicationAdapter {
 		if (eh != null) {
 			eh.handleQuitAction(Application.GetApplication(), System.nanoTime());
 		}
-		Platform.exit();
+		if (forceQuitOnCmdQ) {
+			Platform.exit();
+		}
+	}
+
+	public void setForceQuitOnCmdQ(boolean forceQuit) {
+		this.forceQuitOnCmdQ = forceQuit;
 	}
 }
