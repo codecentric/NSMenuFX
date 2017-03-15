@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Menu;
@@ -20,25 +21,39 @@ public class MenuBarUtils {
 		return bar;
 	}
 
-	public static void removeExistingMenuBar(Pane pane) {
-		ObservableList<Node> children = pane.getChildren();
+	public static void removeExistingMenuBar(ObservableList<Node> children) {
 		children.removeAll(children.stream().filter(node -> node instanceof MenuBar).collect(Collectors.toList()));
 	}
 
 	public static void setMenuBar(Stage stage, MenuBar menuBar) {
 		Parent parent = stage.getScene().getRoot();
-		if (parent instanceof Pane) {
-			setMenuBar((Pane) parent, menuBar);
+		ObservableList<Node> children = getChildren(parent);
+		if (children != null) {
+			setMenuBar(children, menuBar);
 		}
 	}
 
-	public static void setMenuBar(Pane pane, MenuBar menuBar) {
-		replaceMenuBar(pane, createMenuBar(extractSubMenus(menuBar)));
+	private static ObservableList<Node> getChildren(Parent parent) {
+		if (parent instanceof Pane) {
+			return ((Pane) parent).getChildren();
+		} else if (parent instanceof Group) {
+			return ((Group) parent).getChildren();
+		}
+
+		return null;
 	}
 
-	private static void replaceMenuBar(Pane pane, MenuBar createMenuBar) {
-		removeExistingMenuBar(pane);
-		pane.getChildren().add(createMenuBar);
+	public static void setMenuBar(Pane pane, MenuBar menuBar) {
+		setMenuBar(pane.getChildren(), menuBar);
+	}
+
+	private static void setMenuBar(ObservableList<Node> children, MenuBar menuBar) {
+		replaceMenuBar(children, createMenuBar(extractSubMenus(menuBar)));
+	}
+
+	private static void replaceMenuBar(ObservableList<Node> children, MenuBar createMenuBar) {
+		removeExistingMenuBar(children);
+		children.add(createMenuBar);
 	}
 
 	private static List<Menu> extractSubMenus(MenuBar bar) {
