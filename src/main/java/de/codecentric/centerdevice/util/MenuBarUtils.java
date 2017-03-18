@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.Pane;
@@ -26,10 +27,12 @@ public class MenuBarUtils {
 	}
 
 	public static void setMenuBar(Stage stage, MenuBar menuBar) {
-		Parent parent = stage.getScene().getRoot();
-		ObservableList<Node> children = getChildren(parent);
-		if (children != null) {
-			setMenuBar(children, menuBar);
+		Scene scene = stage.getScene();
+		if (scene != null) {
+			ObservableList<Node> children = getChildren(scene.getRoot());
+			if (children != null) {
+				setMenuBar(children, menuBar);
+			}
 		}
 	}
 
