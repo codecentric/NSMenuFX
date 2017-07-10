@@ -1,6 +1,12 @@
 package de.codecentric.centerdevice.listener;
 
-import com.sun.javafx.stage.StageHelper;
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import de.codecentric.centerdevice.util.StageUtils;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -10,12 +16,6 @@ import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
-
-import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public class WindowMenuUpdateListener implements ListChangeListener<Stage> {
 
@@ -27,10 +27,10 @@ public class WindowMenuUpdateListener implements ListChangeListener<Stage> {
 		this.windowMenu = new WeakReference<>(windowMenu);
 		createdMenuItems = new HashMap<>();
 
-		addItemsToMenu(StageHelper.getStages());
+		addItemsToMenu(StageUtils.getStages());
 
 		stages = FXCollections.observableArrayList(stage -> new Observable[] {stage.focusedProperty()});
-		Bindings.bindContent(stages, StageHelper.getStages());
+		Bindings.bindContent(stages, StageUtils.getStages());
 
 		stages.addListener((Change <? extends Stage> c) -> checkFocusedStage());
 	}

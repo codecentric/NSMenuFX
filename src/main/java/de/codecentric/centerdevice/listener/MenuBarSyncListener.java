@@ -1,8 +1,7 @@
 package de.codecentric.centerdevice.listener;
 
-import com.sun.javafx.stage.StageHelper;
-
 import de.codecentric.centerdevice.util.MenuBarUtils;
+import de.codecentric.centerdevice.util.StageUtils;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
@@ -17,13 +16,13 @@ public class MenuBarSyncListener implements ListChangeListener<Stage> {
 
 		if (instance == null) {
 			instance = new MenuBarSyncListener();
-			StageHelper.getStages().addListener(instance);
+			StageUtils.getStages().addListener(instance);
 		}
 	}
 
 	public static void unregister() {
 		if (instance != null) {
-			StageHelper.getStages().removeListener(instance);
+			StageUtils.getStages().removeListener(instance);
 			instance = null;
 		}
 	}

@@ -1,16 +1,26 @@
 package de.codecentric.centerdevice.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import com.sun.javafx.stage.StageHelper;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class StageUtils {
+	
+	private static ObservableList<Stage> stages;
+	
+	private static ObservableList<Window> windows;
+	
 	public static void bringAllToFront() {
 		Optional<Stage> focusedStage = getFocusedStage();
 		getStages().forEach(stage -> stage.toFront());
@@ -46,12 +56,49 @@ public class StageUtils {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static ObservableList<Stage> getStages() {
-		return StageHelper.getStages();
+		if (stages == null) {
+			// Java 9
+			try {
+				windows = (ObservableList<Window>)Window.class.getMethod("getWindows").invoke(null);
+				stages = FXCollections.observableArrayList();
+				windows.addListener(new ListChangeListener<Window>() {
+					@Override
+					public void onChanged(javafx.collections.ListChangeListener.Change<? extends Window> c) {
+						updateStages();
+					}
+				});
+				updateStages();
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
+			}
+			
+			if (stages == null) {		
+				// Java 8
+				try {				
+					stages = (ObservableList<Stage>)StageHelper.class.getMethod("getStages").invoke(null);
+				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e) {
+				}						
+			}			
+		}
+				
+		return stages;
 	}
 
+	private static void updateStages() {
+		List<Stage> newStages = new LinkedList<>();
+		for (Window w : windows) {
+			if (w instanceof Stage) {
+				newStages.add((Stage)w);
+			}
+		}
+		stages.setAll(newStages);		
+	}
+	
 	public static Optional<Stage> getFocusedStage() {
-		return StageHelper.getStages().stream().filter(stage -> stage.isFocused()).findFirst();
+		return getStages().stream().filter(stage -> stage.isFocused()).findFirst();
 	}
 
 	public static int getFocusedStageIndex(List<Stage> stages) {
