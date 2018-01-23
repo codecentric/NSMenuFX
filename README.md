@@ -1,5 +1,7 @@
 # NSMenuFX
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/61379f5f801c464fb8cf5488d7c9f0c3)](https://www.codacy.com/app/0x4a616e/NSMenuFX?utm_source=github.com&utm_medium=referral&utm_content=codecentric/NSMenuFX&utm_campaign=badger)
+
 A simple library to customize the OS X menu bar to give your JavaFX app 
 a more [native look and feel](https://developer.apple.com/library/mac/documentation/UserExperience/Conceptual/OSXHIGuidelines/MenuBarMenus.html).  
 
