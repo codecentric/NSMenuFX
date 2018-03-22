@@ -1,3 +1,9 @@
+# 2.1.6
+
+## Bugfixes
+
+* Make StageUtils compatible with Java 8 and 9
+
 # 2.1.5
 
 ## Bugfixes
