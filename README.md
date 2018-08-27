@@ -35,7 +35,7 @@ Add the following lines to the dependencies in your `pom.xml`
     </dependency>
 ## Gradle
 
-Add the following lines to the dependencies in your `build.gradle`
+Add the following line to the dependencies in your `build.gradle`
 
 	compile "de.codecentric.centerdevice:centerdevice-nsmenufx:2.1.6"
 
