@@ -1,6 +1,7 @@
 package de.codecentric.centerdevice.javafx;
 
 import de.codecentric.centerdevice.adapter.NSMenuItemProvider;
+import de.codecentric.centerdevice.adapter.NSMenuProvider;
 import de.codecentric.centerdevice.cocoa.NSMenuItem;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
@@ -15,7 +16,8 @@ public class NSMenuItemFX implements NSMenuItemProvider {
 
   public NSMenuItemFX(MenuItem menuItem) {
     this.menuItem = menuItem;
-    this.nsMenuItem = NSMenuItem.alloc().init(menuItem.getText(), menuItem.getOnAction(), toKeyEquivalentString(menuItem.getAccelerator()));
+    this.nsMenuItem = NSMenuItem.alloc()
+        .init(menuItem.getText(), menuItem.getOnAction(), toKeyEquivalentString(menuItem.getAccelerator()));
 
     menuItem.textProperty().addListener((observable, oldValue, newValue) -> {
       if (!newValue.equals(oldValue)) {
@@ -33,8 +35,19 @@ public class NSMenuItemFX implements NSMenuItemProvider {
       return "";
     }
 
-    System.out.println(accelerator.toString());
-    return accelerator.getName().toString();
+    System.out.println(keyEquivalent(accelerator));
+    return keyEquivalent(accelerator);
+  }
+
+  private static String keyEquivalent(KeyCombination accelerator) {
+    String keyEquivalendString = accelerator.getName().replace("Meta", "");
+    if (accelerator.getShift() != KeyCombination.ModifierValue.DOWN) {
+      keyEquivalendString = keyEquivalendString.toLowerCase();
+    }
+    if (keyEquivalendString.startsWith("+")) {
+      keyEquivalendString = keyEquivalendString.substring(1);
+    }
+    return keyEquivalendString;
   }
 
   public NSMenuItem getNsMenuItem() {
