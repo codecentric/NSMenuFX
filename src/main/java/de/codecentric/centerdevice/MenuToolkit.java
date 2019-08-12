@@ -1,7 +1,11 @@
 package de.codecentric.centerdevice;
 
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Locale;
+
 import com.sun.javafx.scene.control.GlobalMenuAdapter;
-import com.sun.javafx.stage.StageHelper;
+
 import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
 import de.codecentric.centerdevice.glass.AdapterContext;
 import de.codecentric.centerdevice.glass.GlassAdaptionException;
@@ -26,10 +30,6 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class MenuToolkit {
 	private static final String APP_NAME = "Apple";
@@ -174,7 +174,7 @@ public class MenuToolkit {
 	}
 
 	public void setMenuBar(MenuBar menuBar) {
-		StageHelper.getStages().forEach(stage -> setMenuBar(stage, menuBar));
+		StageUtils.getStages().forEach(stage -> setMenuBar(stage, menuBar));
 	}
 
 	public void setMenuBar(Stage stage, MenuBar menuBar) {
@@ -191,7 +191,11 @@ public class MenuToolkit {
 
 	public void autoAddWindowMenuItems(Menu menu) {
 		menu.getItems().add(new SeparatorMenuItem());
-		StageHelper.getStages().addListener(new WindowMenuUpdateListener(menu));
+		StageUtils.getStages().addListener(new WindowMenuUpdateListener(menu));
+	}
+
+	public void setForceQuitOnCmdQ(boolean forceQuit) {
+		applicationAdapter.setForceQuitOnCmdQ(forceQuit);
 	}
 
 	protected Menu extractApplicationMenu(MenuBar menuBar) {

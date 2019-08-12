@@ -11,7 +11,7 @@ public class LabelMaker {
   public static final String PROPERTY_FILE_PREFIX = "menu_labels_";
 
   private final Properties properties;
-  private Locale locale;
+  private final Locale locale;
 
   public LabelMaker(Locale locale) {
     this.locale = locale;
@@ -36,16 +36,29 @@ public class LabelMaker {
   }
 
   private InputStream getLabelResource(Locale locale) {
-    InputStream resource = LabelMaker.class.getClassLoader().getResourceAsStream(getResourceName(locale));
-    if (resource == null && !locale.getLanguage().equals(Locale.ENGLISH.getLanguage())) {
-      System.err.println(locale.getDisplayLanguage() + " menu labels not found. Falling back to english.");
-      resource = LabelMaker.class.getClassLoader().getResourceAsStream(getResourceName(Locale.ENGLISH));
+    InputStream resource = LabelMaker.class.getClassLoader().getResourceAsStream(getBCP47ResourceName(locale));
+    if (resource != null) {
+      return resource;
     }
-    return resource;
+
+    resource = LabelMaker.class.getClassLoader().getResourceAsStream(getISO639ResourceName(locale));
+    if (resource != null) {
+      return resource;
+    }
+
+    return LabelMaker.class.getClassLoader().getResourceAsStream(getISO639ResourceName(Locale.ENGLISH));
   }
 
-  private String getResourceName(Locale locale) {
-    return PROPERTY_FILE_PREFIX + locale.getLanguage() + PROPERTY_FILE_EXTENSION;
+  private String getISO639ResourceName(Locale locale) {
+    return getResourceName(locale.getLanguage());
+  }
+
+  private String getBCP47ResourceName(Locale locale) {
+    return getResourceName(locale.toLanguageTag().replace('-', '_'));
+  }
+
+  public String getResourceName(String label) {
+    return PROPERTY_FILE_PREFIX + label + PROPERTY_FILE_EXTENSION;
   }
 
   public String getLabel(LabelName menuItemName, Object... args) {
