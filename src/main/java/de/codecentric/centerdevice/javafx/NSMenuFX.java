@@ -31,6 +31,10 @@ public class NSMenuFX implements NSMenuProvider {
 
   private void addMenuItem(MenuItem menuItem) {
     NSMenuItemFX nsMenuItemFX = new NSMenuItemFX(menuItem);
+    if (menuItem instanceof Menu) {
+      nsMenuItemFX.setSubmenu(new NSMenuFX((Menu) menuItem));
+    }
+
     NSMenuItem nsMenuItem = nsMenuItemFX.getNsMenuItem();
     items.put(menuItem, nsMenuItem);
     this.nsMenu.addItem(nsMenuItem);

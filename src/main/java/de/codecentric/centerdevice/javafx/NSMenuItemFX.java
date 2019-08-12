@@ -24,6 +24,10 @@ public class NSMenuItemFX implements NSMenuItemProvider {
     });
   }
 
+  public void setSubmenu(NSMenuProvider menu) {
+    nsMenuItem.setSubmenu(menu.getNsMenu());
+  }
+
   private static String toKeyEquivalentString(KeyCombination accelerator) {
     if (accelerator == null) {
       return "";
