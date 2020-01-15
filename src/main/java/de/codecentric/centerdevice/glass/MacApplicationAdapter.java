@@ -1,39 +1,30 @@
 package de.codecentric.centerdevice.glass;
 
-import java.lang.invoke.MethodHandle;
-
 import com.sun.glass.ui.Application;
 
 import de.codecentric.centerdevice.util.ReflectionUtils;
 import javafx.application.Platform;
 
 public class MacApplicationAdapter {
-	private MethodHandle hide;
-	private MethodHandle hideOtherApplications;
-	private MethodHandle unhideAllApplications;
-
+    
 	private Application app;
 
 	private boolean forceQuitOnCmdQ = true;
 
-	public MacApplicationAdapter() throws ReflectiveOperationException {
+	public MacApplicationAdapter() {
 		app = Application.GetApplication();
-
-		hide = ReflectionUtils.getHandle(app, "_hide");
-		hideOtherApplications = ReflectionUtils.getHandle(app, "_hideOtherApplications");
-		unhideAllApplications = ReflectionUtils.getHandle(app, "_unhideAllApplications");
 	}
 
 	public void hide() {
-		ReflectionUtils.invokeQuietly(hide, app);
+		ReflectionUtils.invokeQuietly(app, "_hide");
 	}
 
 	public void hideOtherApplications() {
-		ReflectionUtils.invokeQuietly(hideOtherApplications, app);
+		ReflectionUtils.invokeQuietly(app, "_hideOtherApplications");
 	}
 
 	public void unhideAllApplications() {
-		ReflectionUtils.invokeQuietly(unhideAllApplications, app);
+		ReflectionUtils.invokeQuietly(app, "_unhideAllApplications");
 	}
 
 	public void quit() {
@@ -49,4 +40,5 @@ public class MacApplicationAdapter {
 	public void setForceQuitOnCmdQ(boolean forceQuit) {
 		this.forceQuitOnCmdQ = forceQuit;
 	}
+	
 }
