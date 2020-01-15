@@ -88,13 +88,20 @@ public class StageUtils {
 	}
 
 	private static void updateStages() {
-		List<Stage> newStages = new LinkedList<>();
+		List<Stage> currentStages = new LinkedList<>();
 		for (Window w : windows) {
 			if (w instanceof Stage) {
-				newStages.add((Stage)w);
+				currentStages.add((Stage)w);
 			}
 		}
-		stages.setAll(newStages);		
+
+		// Remove no-longer existing stages
+		stages.removeIf(stage -> !currentStages.contains(stage));
+
+		// Add any new stages
+		currentStages.stream()
+				.filter(currentStage -> !stages.contains(currentStage))
+				.forEach(newStage -> stages.add(newStage));
 	}
 	
 	public static Optional<Stage> getFocusedStage() {
