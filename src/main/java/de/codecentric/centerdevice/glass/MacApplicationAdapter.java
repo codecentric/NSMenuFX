@@ -11,7 +11,7 @@ public class MacApplicationAdapter {
 
 	private boolean forceQuitOnCmdQ = true;
 
-	public MacApplicationAdapter() throws ReflectiveOperationException {
+	public MacApplicationAdapter() {
 		app = Application.GetApplication();
 	}
 
