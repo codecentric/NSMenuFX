@@ -39,7 +39,7 @@ public class TKSystemMenuAdapter {
 	}
 
 	private void insertMenu(MenuBase menu, int index) throws Throwable {
-	    ReflectionUtils.getAccessibleMethod(systemMenu, INSERT_MENU, Menu.class, MenuBase.class, int.class).invoke(systemMenu, null, menu, index);
+		ReflectionUtils.getAccessibleMethod(systemMenu, INSERT_MENU, Menu.class, MenuBase.class, int.class).invoke(systemMenu, null, menu, index);
 	}
 
 	private void createMenuBar() throws Throwable {
@@ -51,7 +51,7 @@ public class TKSystemMenuAdapter {
 	}
 
 	protected void setMenuBar(MenuBar bar) throws Throwable {
-        glassSystemMenuBar.set(systemMenu, bar);
+		glassSystemMenuBar.set(systemMenu, bar);
 	}
 
 	public void removeMenu(MenuBar glassSystemMenuBar, int index) {
