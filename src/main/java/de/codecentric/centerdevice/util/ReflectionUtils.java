@@ -17,4 +17,11 @@ public class ReflectionUtils {
 		return field;
 	}
 
+	public static void invokeQuietly(Object instance, String methodName) {
+		try {
+			getAccessibleMethod(instance, methodName).invoke(instance);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
 }

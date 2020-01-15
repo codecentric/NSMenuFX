@@ -16,27 +16,15 @@ public class MacApplicationAdapter {
 	}
 
 	public void hide() {
-        try {
-            ReflectionUtils.getAccessibleMethod(app, "_hide").invoke(app);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+		ReflectionUtils.invokeQuietly(app, "_hide");
 	}
 
 	public void hideOtherApplications() {
-        try {
-            ReflectionUtils.getAccessibleMethod(app, "_hideOtherApplications").invoke(app);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+		ReflectionUtils.invokeQuietly(app, "_hideOtherApplications");
 	}
 
 	public void unhideAllApplications() {
-        try {
-            ReflectionUtils.getAccessibleMethod(app, "_unhideAllApplications").invoke(app);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+		ReflectionUtils.invokeQuietly(app, "_unhideAllApplications");
 	}
 
 	public void quit() {
