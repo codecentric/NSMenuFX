@@ -1,3 +1,10 @@
+# 2.1.7
+
+## Bugfixes
+
+* Use standard reflection instead of method handles
+* Only update menu bar for stages with actual changes
+
 # 2.1.6
 
 ## Bugfixes
