@@ -82,7 +82,7 @@ public class MenuToolkit {
 
 		try {
 			IcnsParser parser = IcnsParser.forFile(AboutStageBuilder.DEFAULT_APP_ICON);
-			stageBuilder = stageBuilder.withImage(new Image(parser.getIconStream(IcnsType.ic08)));
+			stageBuilder = stageBuilder.withImage(new Image(parser.getIconStream(IcnsType.ic09)));
 		} catch (IOException e) {
 			// Too bad, cannot load dummy image
 		}
