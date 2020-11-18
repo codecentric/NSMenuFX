@@ -29,15 +29,15 @@ further dependencies.
 Add the following lines to the dependencies in your `pom.xml`
 
 	<dependency>
-    	<groupId>de.codecentric.centerdevice</groupId>
-    	<artifactId>centerdevice-nsmenufx</artifactId>
-    	<version>2.1.6</version>
+    	<groupId>de.jangassen</groupId>
+    	<artifactId>nsmenufx</artifactId>
+    	<version>2.1.8</version>
     </dependency>
 ## Gradle
 
 Add the following line to the dependencies in your `build.gradle`
 
-	compile "de.codecentric.centerdevice:centerdevice-nsmenufx:2.1.6"
+	compile "de.jangassen:nsmenufx:2.1.8"
 
 ## Usage Examples
 

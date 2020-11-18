@@ -5,13 +5,14 @@ import de.codecentric.centerdevice.cocoa.NSApplication;
 import javafx.application.Platform;
 
 public class MacApplicationAdapter {
+
 	private NSApplication nativeAdapter = NSApplication.sharedApplication();
 
 	private Application app;
 
 	private boolean forceQuitOnCmdQ = true;
 
-	public MacApplicationAdapter() throws ReflectiveOperationException {
+	public MacApplicationAdapter() {
 		app = Application.GetApplication();
 	}
 
@@ -40,4 +41,5 @@ public class MacApplicationAdapter {
 	public void setForceQuitOnCmdQ(boolean forceQuit) {
 		this.forceQuitOnCmdQ = forceQuit;
 	}
+
 }
