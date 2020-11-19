@@ -1,16 +1,8 @@
 package de.codecentric.centerdevice;
 
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Locale;
-
-import com.sun.javafx.scene.control.GlobalMenuAdapter;
-
 import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
 import de.codecentric.centerdevice.glass.AdapterContext;
-import de.codecentric.centerdevice.glass.GlassAdaptionException;
 import de.codecentric.centerdevice.glass.MacApplicationAdapter;
-import de.codecentric.centerdevice.glass.TKSystemMenuAdapter;
 import de.codecentric.centerdevice.icns.IcnsParser;
 import de.codecentric.centerdevice.icns.IcnsType;
 import de.codecentric.centerdevice.labels.LabelMaker;
@@ -31,16 +23,18 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class MenuToolkit {
 	private static final String APP_NAME = "Apple";
 
-	private final TKSystemMenuAdapter systemMenuAdapter;
 	private final MacApplicationAdapter applicationAdapter;
 
 	private final LabelMaker labelMaker;
 
 	private MenuToolkit(AdapterContext adapterContext, LabelMaker labelMaker) {
-		this.systemMenuAdapter = adapterContext.getSystemMenuAdapter();
 		this.applicationAdapter = adapterContext.getApplicationAdapter();
 		this.labelMaker = labelMaker;
 	}
@@ -157,11 +151,7 @@ public class MenuToolkit {
 	}
 
 	public void setApplicationMenu(Menu menu) {
-		try {
-			systemMenuAdapter.setAppleMenu(GlobalMenuAdapter.adapt(menu));
-		} catch (Throwable e) {
-			throw new GlassAdaptionException(e);
-		}
+		// TODO
 	}
 
 	public void setGlobalMenuBar(MenuBar menuBar) {

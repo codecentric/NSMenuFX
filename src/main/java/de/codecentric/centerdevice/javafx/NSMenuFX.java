@@ -1,8 +1,8 @@
 package de.codecentric.centerdevice.javafx;
 
 import de.codecentric.centerdevice.adapter.NSMenuProvider;
-import de.codecentric.centerdevice.cocoa.NSMenu;
-import de.codecentric.centerdevice.cocoa.NSMenuItem;
+import de.jangassen.jfa.appkit.NSMenu;
+import de.jangassen.jfa.appkit.NSMenuItem;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -18,15 +18,14 @@ public class NSMenuFX implements NSMenuProvider {
   private final NSMenu nsMenu;
 
   public NSMenuFX(Menu menu) {
-    this.nsMenu = NSMenu.alloc().init(menu.getText());
+    this.nsMenu = NSMenu.alloc().initWithTitle(menu.getText());
 
-    menu.getItems().forEach(this::addMenuItem);
-
-    menu.textProperty().addListener((observable, oldValue, newValue) -> {
-      nsMenu.setTitle(newValue);
-    });
-
-    menu.getItems().addListener((ListChangeListener<MenuItem>) c -> handleMenuItemChange(c));
+    menu.getItems()
+            .forEach(this::addMenuItem);
+    menu.textProperty()
+            .addListener((observable, oldValue, newValue) -> nsMenu.setTitle(newValue));
+    menu.getItems()
+            .addListener(this::handleMenuItemChange);
   }
 
   private void addMenuItem(MenuItem menuItem) {

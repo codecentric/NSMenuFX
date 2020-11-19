@@ -1,5 +1,8 @@
 package de.codecentric.centerdevice.cocoa;
 
+import de.jangassen.jfa.FoundationProxy;
+import de.jangassen.jfa.appkit.NSMenu;
+import de.jangassen.jfa.appkit.NSMenuItem;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,31 +13,27 @@ public class NSMenuItemTest {
 
   @Test
   public void CreateMenuItem() {
-    NSMenuItem item = NSMenuItem.alloc();
+    NSMenuItem item = FoundationProxy.alloc(NSMenuItem.class);
 
     Assert.assertNotNull(item);
-    Assert.assertNotEquals(0, item.getId());
     Assert.assertFalse(item.hasSubmenu());
   }
 
   @Test
   public void InitMenuItem() {
-    NSMenuItem item = NSMenuItem.alloc().init("Test", (v) -> System.out.println("test"),  "");
+    NSMenuItem item = NSMenuItem.alloc().initWithTitle("Test", null,  "");
 
     Assert.assertNotNull(item);
-    Assert.assertNotEquals(0, item.getId());
     Assert.assertEquals("Test", item.title());
   }
 
   @Test
   public void AddSubmenu() {
-    NSMenuItem item = NSMenuItem.alloc().init("Test", (v) -> System.out.println("test"),  "");
-    NSMenu submenu = NSMenu.alloc().init("test");
+    NSMenuItem item = NSMenuItem.alloc().initWithTitle("Test",null,  "");
+    NSMenu submenu = NSMenu.alloc().initWithTitle("test");
     item.setSubmenu(submenu);
 
     Assert.assertNotNull(item);
-    Assert.assertNotEquals(0, item.getId());
     Assert.assertTrue(item.hasSubmenu());
-    Assert.assertEquals(submenu.getId(), item.submenu().getId());
   }
 }

@@ -1,19 +1,16 @@
 package de.codecentric.centerdevice.glass;
 
-import com.sun.glass.ui.Application;
-import de.codecentric.centerdevice.cocoa.NSApplication;
+import de.jangassen.jfa.appkit.NSApplication;
 import javafx.application.Platform;
 
 public class MacApplicationAdapter {
 
 	private NSApplication nativeAdapter = NSApplication.sharedApplication();
 
-	private Application app;
 
 	private boolean forceQuitOnCmdQ = true;
 
 	public MacApplicationAdapter() {
-		app = Application.GetApplication();
 	}
 
 	public void hide() {
@@ -29,10 +26,6 @@ public class MacApplicationAdapter {
 	}
 
 	public void quit() {
-		Application.EventHandler eh = app.getEventHandler();
-		if (eh != null) {
-			eh.handleQuitAction(Application.GetApplication(), System.nanoTime());
-		}
 		if (forceQuitOnCmdQ) {
 			Platform.exit();
 		}

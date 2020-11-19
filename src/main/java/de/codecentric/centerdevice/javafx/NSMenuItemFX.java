@@ -1,29 +1,47 @@
 package de.codecentric.centerdevice.javafx;
 
+import de.codecentric.centerdevice.cleanup.FoundationCallbackCleaner;
+import de.codecentric.centerdevice.cleanup.NSCleaner;
 import de.codecentric.centerdevice.adapter.NSMenuItemProvider;
 import de.codecentric.centerdevice.adapter.NSMenuProvider;
-import de.codecentric.centerdevice.cocoa.NSMenuItem;
+import de.codecentric.centerdevice.cleanup.NSObjectCleaner;
+import de.jangassen.jfa.FoundationCallbackFactory;
+import de.jangassen.jfa.appkit.NSMenuItem;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 
-/**
- * Created by jan on 19/03/16.
- */
 public class NSMenuItemFX implements NSMenuItemProvider {
 
+  public static final FoundationCallbackFactory.FoundationCallback VOID_CALLBACK = new FoundationCallbackFactory.FoundationCallback(-1, null, null);
   private final NSMenuItem nsMenuItem;
-  private final MenuItem menuItem;
+  private final FoundationCallbackFactory.FoundationCallback foundationCallback;
 
   public NSMenuItemFX(MenuItem menuItem) {
-    this.menuItem = menuItem;
-    this.nsMenuItem = NSMenuItem.alloc()
-        .init(menuItem.getText(), menuItem.getOnAction(), toKeyEquivalentString(menuItem.getAccelerator()));
+    foundationCallback = getFoundationCallback(menuItem);
+
+    this.nsMenuItem = NSMenuItem.alloc().initWithTitle(menuItem.getText(), foundationCallback.getSelector(), toKeyEquivalentString(menuItem.getAccelerator()));
+    this.nsMenuItem.setTarget(foundationCallback.getTarget());
 
     menuItem.textProperty().addListener((observable, oldValue, newValue) -> {
       if (!newValue.equals(oldValue)) {
         nsMenuItem.setTitle(newValue);
       }
     });
+
+    NSCleaner.CLEANER.register(this, new NSObjectCleaner(nsMenuItem));
+    if (foundationCallback != VOID_CALLBACK) {
+      NSCleaner.CLEANER.register(this, new FoundationCallbackCleaner(foundationCallback));
+    }
+  }
+
+  private FoundationCallbackFactory.FoundationCallback getFoundationCallback(MenuItem menuItem) {
+    EventHandler<ActionEvent> onAction = menuItem.getOnAction();
+    if (onAction == null) {
+      return VOID_CALLBACK;
+    }
+    return FoundationCallbackFactory.instance().registerCallback(id -> onAction.handle(new ActionEvent()));
   }
 
   public void setSubmenu(NSMenuProvider menu) {
@@ -35,22 +53,22 @@ public class NSMenuItemFX implements NSMenuItemProvider {
       return "";
     }
 
-    System.out.println(keyEquivalent(accelerator));
     return keyEquivalent(accelerator);
   }
 
   private static String keyEquivalent(KeyCombination accelerator) {
-    String keyEquivalendString = accelerator.getName().replace("Meta", "");
+    String keyEquivalentString = accelerator.getName().replace("Meta", "");
     if (accelerator.getShift() != KeyCombination.ModifierValue.DOWN) {
-      keyEquivalendString = keyEquivalendString.toLowerCase();
+      keyEquivalentString = keyEquivalentString.toLowerCase();
     }
-    if (keyEquivalendString.startsWith("+")) {
-      keyEquivalendString = keyEquivalendString.substring(1);
+    if (keyEquivalentString.startsWith("+")) {
+      keyEquivalentString = keyEquivalentString.substring(1);
     }
-    return keyEquivalendString;
+    return keyEquivalentString;
   }
 
   public NSMenuItem getNsMenuItem() {
     return nsMenuItem;
   }
+
 }
