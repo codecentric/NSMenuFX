@@ -1,6 +1,7 @@
-package de.codecentric.centerdevice.platform;
+package de.codecentric.centerdevice.platform.mac;
 
-import de.codecentric.centerdevice.javafx.NSMenuFX;
+import de.codecentric.centerdevice.platform.NativeAdapter;
+import de.codecentric.centerdevice.platform.mac.convert.NSMenuFX;
 import de.jangassen.jfa.appkit.NSApplication;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;

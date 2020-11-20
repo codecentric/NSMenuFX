@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 public class AboutMenu extends Application {
 
-  @Override public void start(Stage primaryStage) throws Exception {
+  @Override public void start(Stage primaryStage) {
     primaryStage.setScene(new Scene(new StackPane()));
     primaryStage.show();
 

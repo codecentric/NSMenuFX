@@ -1,4 +1,4 @@
-package de.codecentric.centerdevice.cleanup;
+package de.codecentric.centerdevice.platform.mac.cleanup;
 
 import de.jangassen.jfa.FoundationCallbackFactory;
 import de.jangassen.jfa.appkit.NSObject;

@@ -1,7 +1,7 @@
 package de.codecentric.centerdevice;
 
 import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
-import de.codecentric.centerdevice.platform.MacNativeAdapter;
+import de.codecentric.centerdevice.platform.mac.MacNativeAdapter;
 import de.codecentric.centerdevice.platform.NativeAdapter;
 import de.codecentric.centerdevice.icns.IcnsParser;
 import de.codecentric.centerdevice.icns.IcnsType;

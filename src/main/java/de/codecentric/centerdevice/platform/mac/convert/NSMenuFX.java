@@ -1,6 +1,6 @@
-package de.codecentric.centerdevice.javafx;
+package de.codecentric.centerdevice.platform.mac.convert;
 
-import de.codecentric.centerdevice.cleanup.NSCleaner;
+import de.codecentric.centerdevice.platform.mac.cleanup.NSCleaner;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
 import javafx.collections.ListChangeListener;
