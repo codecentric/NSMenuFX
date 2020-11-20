@@ -1,4 +1,4 @@
-package de.codecentric.centerdevice.sample;
+package de.jangassen.nsmenufx.samples;
 
 import de.codecentric.centerdevice.MenuToolkit;
 import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
@@ -15,9 +15,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Calendar;
 
-/**
- * Created by jan on 30/05/16.
- */
 public class AboutMenu extends Application {
 
   @Override public void start(Stage primaryStage) throws Exception {

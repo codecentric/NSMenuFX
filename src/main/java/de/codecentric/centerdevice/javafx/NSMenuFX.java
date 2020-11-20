@@ -1,6 +1,7 @@
 package de.codecentric.centerdevice.javafx;
 
-import de.codecentric.centerdevice.adapter.NSMenuProvider;
+import de.codecentric.centerdevice.cleanup.NSCleaner;
+import de.codecentric.centerdevice.cleanup.NSObjectCleaner;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
 import javafx.collections.ListChangeListener;
@@ -10,44 +11,41 @@ import javafx.scene.control.MenuItem;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by jan on 20/03/16.
- */
-public class NSMenuFX implements NSMenuProvider {
-  private final Map<MenuItem, NSMenuItem> items = new HashMap<>();
-  private final NSMenu nsMenu;
+public class NSMenuFX {
+  public static NSMenu convert(Menu menu) {
+    NSMenu nsMenu = NSMenu.alloc().initWithTitle(menu.getText());
 
-  public NSMenuFX(Menu menu) {
-    this.nsMenu = NSMenu.alloc().initWithTitle(menu.getText());
-
+    Map<MenuItem, NSMenuItem> fxToNsMenuItems = new HashMap<>();
     menu.getItems()
-            .forEach(this::addMenuItem);
+            .forEach(item -> NSMenuFX.addMenuItem(nsMenu, fxToNsMenuItems, item));
     menu.textProperty()
             .addListener((observable, oldValue, newValue) -> nsMenu.setTitle(newValue));
     menu.getItems()
-            .addListener(this::handleMenuItemChange);
+            .addListener((ListChangeListener<MenuItem>)(change -> NSMenuFX.handleMenuItemChange(nsMenu, fxToNsMenuItems, change)));
+
+    NSCleaner.CLEANER.register(menu, new NSObjectCleaner(nsMenu));
+    return nsMenu;
   }
 
-  private void addMenuItem(MenuItem menuItem) {
-    NSMenuItemFX nsMenuItemFX = new NSMenuItemFX(menuItem);
+  private static void addMenuItem(NSMenu nsMenu, Map<MenuItem, NSMenuItem> fxToNsMenuItems, MenuItem menuItem) {
+    NSMenuItem nsMenuItem = NSMenuItemFX.convert(menuItem);
     if (menuItem instanceof Menu) {
-      nsMenuItemFX.setSubmenu(new NSMenuFX((Menu) menuItem));
+      nsMenuItem.setSubmenu(NSMenuFX.convert((Menu) menuItem));
     }
 
-    NSMenuItem nsMenuItem = nsMenuItemFX.getNsMenuItem();
-    items.put(menuItem, nsMenuItem);
-    this.nsMenu.addItem(nsMenuItem);
+    fxToNsMenuItems.put(menuItem, nsMenuItem);
+    nsMenu.addItem(nsMenuItem);
   }
 
-  private void removeMenuItem(MenuItem menuItem) {
-    NSMenuItem nsMenuItem = items.get(menuItem);
+  private static void removeMenuItem(NSMenu nsMenu, Map<MenuItem, NSMenuItem> fxToNsMenuItems, MenuItem menuItem) {
+    NSMenuItem nsMenuItem = fxToNsMenuItems.get(menuItem);
     if (nsMenuItem != null) {
-      this.nsMenu.removeItem(nsMenuItem);
-      items.remove(menuItem);
+      nsMenu.removeItem(nsMenuItem);
+      fxToNsMenuItems.remove(menuItem);
     }
   }
 
-  private void handleMenuItemChange(ListChangeListener.Change<? extends MenuItem> change) {
+  private static void handleMenuItemChange(NSMenu nsMenu, Map<MenuItem, NSMenuItem> fxToNsMenuItems, ListChangeListener.Change<? extends MenuItem> change) {
     while (change.next()) {
       if (change.wasPermutated()) {
         for (int i = change.getFrom(); i < change.getTo(); ++i) {
@@ -56,13 +54,9 @@ public class NSMenuFX implements NSMenuProvider {
       } else if (change.wasUpdated()) {
         //update item
       } else {
-        change.getRemoved().forEach(this::removeMenuItem);
-        change.getAddedSubList().forEach(this::addMenuItem);
+        change.getRemoved().forEach(item -> NSMenuFX.removeMenuItem(nsMenu, fxToNsMenuItems, item));
+        change.getAddedSubList().forEach(item -> NSMenuFX.addMenuItem(nsMenu, fxToNsMenuItems, item));
       }
     }
-  }
-
-  public NSMenu getNsMenu() {
-    return nsMenu;
   }
 }

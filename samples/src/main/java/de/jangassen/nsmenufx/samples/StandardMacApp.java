@@ -1,4 +1,4 @@
-package de.codecentric.centerdevice.sample;
+package de.jangassen.nsmenufx.samples;
 
 import de.codecentric.centerdevice.MenuToolkit;
 import javafx.application.Application;

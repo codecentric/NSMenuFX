@@ -12,6 +12,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class AboutStageBuilder {
 
@@ -40,10 +41,11 @@ public class AboutStageBuilder {
   }
 
   private void prepareStage() throws IOException {
-    FXMLLoader loader = new FXMLLoader(AboutStageBuilder.class.getClassLoader().getResource("about.fxml"));
+    URL resource = AboutStageBuilder.class.getClassLoader().getResource("about.fxml");
+    FXMLLoader loader = new FXMLLoader(resource);
     Parent root = loader.load();
 
-    AboutController controller = loader.<AboutController>getController();
+    AboutController controller = loader.getController();
 
     if (image != null) {
       controller.getContent().getChildren().add(image);

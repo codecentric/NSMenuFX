@@ -1,6 +1,5 @@
 package de.codecentric.centerdevice.cocoa;
 
-import de.jangassen.jfa.FoundationProxy;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
 import org.junit.Assert;
@@ -13,7 +12,7 @@ public class NSMenuItemTest {
 
   @Test
   public void CreateMenuItem() {
-    NSMenuItem item = FoundationProxy.alloc(NSMenuItem.class);
+    NSMenuItem item = NSMenuItem.alloc();
 
     Assert.assertNotNull(item);
     Assert.assertFalse(item.hasSubmenu());
@@ -21,7 +20,7 @@ public class NSMenuItemTest {
 
   @Test
   public void InitMenuItem() {
-    NSMenuItem item = NSMenuItem.alloc().initWithTitle("Test", null,  "");
+    NSMenuItem item = NSMenuItem.alloc().initWithTitle("Test", null, "");
 
     Assert.assertNotNull(item);
     Assert.assertEquals("Test", item.title());
@@ -29,7 +28,7 @@ public class NSMenuItemTest {
 
   @Test
   public void AddSubmenu() {
-    NSMenuItem item = NSMenuItem.alloc().initWithTitle("Test",null,  "");
+    NSMenuItem item = NSMenuItem.alloc().initWithTitle("Test", null, "");
     NSMenu submenu = NSMenu.alloc().initWithTitle("test");
     item.setSubmenu(submenu);
 

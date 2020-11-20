@@ -8,4 +8,7 @@ module nsmenufx {
     requires jfa;
 
     exports de.codecentric.centerdevice;
+    exports de.codecentric.centerdevice.labels;
+    exports de.codecentric.centerdevice.dialogs.about;
+    exports de.codecentric.centerdevice.icns;
 }
