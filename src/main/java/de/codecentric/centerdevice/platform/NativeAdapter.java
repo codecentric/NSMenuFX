@@ -1,4 +1,4 @@
-package de.codecentric.centerdevice.glass;
+package de.codecentric.centerdevice.platform;
 
 import javafx.scene.control.Menu;
 

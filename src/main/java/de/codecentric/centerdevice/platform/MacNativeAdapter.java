@@ -1,4 +1,4 @@
-package de.codecentric.centerdevice.glass;
+package de.codecentric.centerdevice.platform;
 
 import de.codecentric.centerdevice.javafx.NSMenuFX;
 import de.jangassen.jfa.appkit.NSApplication;
