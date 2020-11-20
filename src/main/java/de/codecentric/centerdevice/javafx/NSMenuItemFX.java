@@ -1,8 +1,6 @@
 package de.codecentric.centerdevice.javafx;
 
-import de.codecentric.centerdevice.cleanup.FoundationCallbackCleaner;
 import de.codecentric.centerdevice.cleanup.NSCleaner;
-import de.codecentric.centerdevice.cleanup.NSObjectCleaner;
 import de.jangassen.jfa.FoundationCallbackFactory;
 import de.jangassen.jfa.FoundationProxy;
 import de.jangassen.jfa.appkit.NSMenuItem;
@@ -35,9 +33,9 @@ public class NSMenuItemFX {
         }
       });
 
-      NSCleaner.CLEANER.register(menuItem, new NSObjectCleaner(nsMenuItem));
+      NSCleaner.register(menuItem, nsMenuItem);
       if (foundationCallback != VOID_CALLBACK) {
-        NSCleaner.CLEANER.register(menuItem, new FoundationCallbackCleaner(foundationCallback));
+        NSCleaner.register(menuItem, foundationCallback);
       }
 
       return nsMenuItem;

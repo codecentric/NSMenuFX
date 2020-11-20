@@ -1,7 +1,6 @@
 package de.codecentric.centerdevice.javafx;
 
 import de.codecentric.centerdevice.cleanup.NSCleaner;
-import de.codecentric.centerdevice.cleanup.NSObjectCleaner;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
 import javafx.collections.ListChangeListener;
@@ -21,9 +20,9 @@ public class NSMenuFX {
     menu.textProperty()
             .addListener((observable, oldValue, newValue) -> nsMenu.setTitle(newValue));
     menu.getItems()
-            .addListener((ListChangeListener<MenuItem>)(change -> NSMenuFX.handleMenuItemChange(nsMenu, fxToNsMenuItems, change)));
+            .addListener((ListChangeListener<MenuItem>) (change -> NSMenuFX.handleMenuItemChange(nsMenu, fxToNsMenuItems, change)));
 
-    NSCleaner.CLEANER.register(menu, new NSObjectCleaner(nsMenu));
+    NSCleaner.register(menu, nsMenu);
     return nsMenu;
   }
 
