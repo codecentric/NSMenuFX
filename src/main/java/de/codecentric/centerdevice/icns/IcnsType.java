@@ -34,7 +34,7 @@ public enum IcnsType {
   ic13("ic13"),
   ic14("ic14");
 
-  private String osType;
+  private final String osType;
 
   IcnsType(String osType) {
     this.osType = osType;

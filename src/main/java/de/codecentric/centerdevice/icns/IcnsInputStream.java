@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 class IcnsInputStream extends InputStream {
-  private InputStream other;
+  private final InputStream other;
   private long remainingBytes;
 
   public IcnsInputStream(InputStream other, long bytes) {

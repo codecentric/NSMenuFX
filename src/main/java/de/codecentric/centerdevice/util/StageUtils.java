@@ -12,7 +12,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class StageUtils {
+public final class StageUtils {
+
+  private StageUtils() {
+
+  }
 
   private static ObservableList<Stage> stages;
 
@@ -48,12 +52,11 @@ public class StageUtils {
     int currentStageIndex = getFocusedStageIndex(stages);
     if (currentStageIndex < stages.size() - 1) {
       stages.get(currentStageIndex + 1).toFront();
-    } else if (stages.size() > 0) {
+    } else if (!stages.isEmpty()) {
       stages.get(0).toFront();
     }
   }
 
-  @SuppressWarnings("unchecked")
   public static ObservableList<Stage> getStages() {
     if (stages == null) {
       windows = Window.getWindows();

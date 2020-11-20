@@ -6,7 +6,7 @@ public enum LabelName {
       "bring_all_to_front"), CYCLE_THROUGH_WINDOWS("cycle_through_windows"), FILE("file"), WINDOW("window"), VIEW(
       "view"), HELP("help"), EDIT("edit");
 
-  private String propertyKey;
+  private final String propertyKey;
 
   LabelName(String propertyKey) {
     this.propertyKey = propertyKey;

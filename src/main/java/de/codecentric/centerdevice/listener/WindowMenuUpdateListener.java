@@ -37,8 +37,7 @@ public class WindowMenuUpdateListener implements ListChangeListener<Stage> {
 
 	private void checkFocusedStage() {
 		Optional<Stage> focusedStage = stages.stream().filter(Stage::isFocused).findFirst();
-		createdMenuItems.entrySet().forEach((entry) ->
-				entry.getValue().setSelected(focusedStage.isPresent() && focusedStage.get().equals(entry.getKey())));
+		createdMenuItems.forEach((key, value) -> value.setSelected(focusedStage.isPresent() && focusedStage.get().equals(key)));
 	}
 
 	@Override
