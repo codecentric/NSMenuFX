@@ -1,6 +1,6 @@
 package de.jangassen.nsmenufx.samples;
 
-import de.codecentric.centerdevice.MenuToolkit;
+import de.jangassen.MenuToolkit;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;

@@ -1,9 +1,9 @@
 package de.jangassen.nsmenufx.samples;
 
-import de.codecentric.centerdevice.MenuToolkit;
-import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
-import de.codecentric.centerdevice.icns.IcnsParser;
-import de.codecentric.centerdevice.icns.IcnsType;
+import de.jangassen.MenuToolkit;
+import de.jangassen.dialogs.about.AboutStageBuilder;
+import de.jangassen.icns.IcnsParser;
+import de.jangassen.icns.IcnsType;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
