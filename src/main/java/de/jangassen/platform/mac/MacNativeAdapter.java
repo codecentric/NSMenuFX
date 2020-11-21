@@ -1,7 +1,7 @@
 package de.jangassen.platform.mac;
 
 import de.jangassen.platform.NativeAdapter;
-import de.jangassen.platform.mac.convert.NSMenuFX;
+import de.jangassen.platform.mac.convert.MenuConverter;
 import de.jangassen.jfa.appkit.NSApplication;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
@@ -30,7 +30,7 @@ public class MacNativeAdapter implements NativeAdapter {
   public void setApplicationMenu(Menu menu) {
     NSMenu nsMenu = sharedApplication.mainMenu();
     NSMenuItem mainMenu = NSMenuItem.alloc().initWithTitle("", null, "");
-    mainMenu.setSubmenu(NSMenuFX.convert(menu));
+    mainMenu.setSubmenu(MenuConverter.convert(menu));
 
     nsMenu.removeItemAtIndex(0);
     nsMenu.insertItem(mainMenu, 0);

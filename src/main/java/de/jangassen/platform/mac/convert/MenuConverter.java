@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class NSMenuFX {
-  private NSMenuFX() {}
+public class MenuConverter {
+  private MenuConverter() {}
 
   public static NSMenu convert(Menu menu) {
     String text = Optional.ofNullable(menu.getText()).orElse("");
@@ -20,20 +20,20 @@ public class NSMenuFX {
 
     Map<MenuItem, NSMenuItem> fxToNsMenuItems = new HashMap<>();
     menu.getItems()
-            .forEach(item -> NSMenuFX.addMenuItem(nsMenu, fxToNsMenuItems, item));
+            .forEach(item -> MenuConverter.addMenuItem(nsMenu, fxToNsMenuItems, item));
     menu.textProperty()
             .addListener((observable, oldValue, newValue) -> nsMenu.setTitle(newValue));
     menu.getItems()
-            .addListener((ListChangeListener<MenuItem>) (change -> NSMenuFX.handleMenuItemChange(nsMenu, fxToNsMenuItems, change)));
+            .addListener((ListChangeListener<MenuItem>) (change -> MenuConverter.handleMenuItemChange(nsMenu, fxToNsMenuItems, change)));
 
     NSCleaner.register(menu, nsMenu);
     return nsMenu;
   }
 
   private static void addMenuItem(NSMenu nsMenu, Map<MenuItem, NSMenuItem> fxToNsMenuItems, MenuItem menuItem) {
-    NSMenuItem nsMenuItem = NSMenuItemFX.convert(menuItem);
+    NSMenuItem nsMenuItem = MenuItemConverter.convert(menuItem);
     if (menuItem instanceof Menu) {
-      nsMenuItem.setSubmenu(NSMenuFX.convert((Menu) menuItem));
+      nsMenuItem.setSubmenu(MenuConverter.convert((Menu) menuItem));
     }
 
     fxToNsMenuItems.put(menuItem, nsMenuItem);
@@ -57,8 +57,8 @@ public class NSMenuFX {
       } else if (change.wasUpdated()) {
         //update item
       } else {
-        change.getRemoved().forEach(item -> NSMenuFX.removeMenuItem(nsMenu, fxToNsMenuItems, item));
-        change.getAddedSubList().forEach(item -> NSMenuFX.addMenuItem(nsMenu, fxToNsMenuItems, item));
+        change.getRemoved().forEach(item -> MenuConverter.removeMenuItem(nsMenu, fxToNsMenuItems, item));
+        change.getAddedSubList().forEach(item -> MenuConverter.addMenuItem(nsMenu, fxToNsMenuItems, item));
       }
     }
   }

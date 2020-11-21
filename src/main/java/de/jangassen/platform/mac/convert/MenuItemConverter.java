@@ -12,11 +12,11 @@ import javafx.scene.input.KeyCombination;
 
 import java.util.Optional;
 
-public class NSMenuItemFX {
+public class MenuItemConverter {
 
   private static final String SEPARATOR_ITEM = "separatorItem";
 
-  private NSMenuItemFX() {}
+  private MenuItemConverter() {}
 
   public static final FoundationCallbackFactory.FoundationCallback VOID_CALLBACK = new FoundationCallbackFactory.FoundationCallback(-1, null, null);
 
