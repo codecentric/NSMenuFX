@@ -41,3 +41,4 @@ xcuserdata/
 *.moved-aside
 *.xcuserstate
 
+/samples/target/
