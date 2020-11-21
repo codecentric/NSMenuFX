@@ -9,7 +9,7 @@ public interface NativeAdapter {
 
   void hideOtherApplications();
 
-  void unhideAllApplications();
+  void showAllWindows();
 
   void quit();
 

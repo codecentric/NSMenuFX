@@ -6,6 +6,7 @@ import de.jangassen.jfa.appkit.NSApplication;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
 import de.jangassen.jfa.appkit.NSWorkspace;
+import de.jangassen.jfa.foundation.Foundation;
 import de.jangassen.jfa.foundation.ID;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
@@ -20,6 +21,10 @@ public class MacNativeAdapter implements NativeAdapter {
   public MacNativeAdapter() {
     sharedApplication = NSApplication.sharedApplication();
     sharedWorkspace = NSWorkspace.sharedWorkspace();
+  }
+
+  public static boolean isAvailable() {
+    return Foundation.isAvailable();
   }
 
   public void setApplicationMenu(Menu menu) {
@@ -39,7 +44,7 @@ public class MacNativeAdapter implements NativeAdapter {
     sharedWorkspace.hideOtherApplications();
   }
 
-  public void unhideAllApplications() {
+  public void showAllWindows() {
     sharedApplication.unhide(ID.NIL);
   }
 

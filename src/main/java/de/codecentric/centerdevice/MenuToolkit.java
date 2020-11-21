@@ -1,7 +1,7 @@
 package de.codecentric.centerdevice;
 
 import de.codecentric.centerdevice.dialogs.about.AboutStageBuilder;
-import de.codecentric.centerdevice.platform.mac.MacNativeAdapter;
+import de.codecentric.centerdevice.platform.NativeAdapterProvider;
 import de.codecentric.centerdevice.platform.NativeAdapter;
 import de.codecentric.centerdevice.icns.IcnsParser;
 import de.codecentric.centerdevice.icns.IcnsType;
@@ -48,7 +48,7 @@ public class MenuToolkit {
   }
 
   public static MenuToolkit toolkit(LabelMaker labelMaker) {
-    return new MenuToolkit(new MacNativeAdapter(), labelMaker);
+    return new MenuToolkit(NativeAdapterProvider.getNativeAdapter(), labelMaker);
   }
 
   public Menu createDefaultApplicationMenu(String appName) {
@@ -94,7 +94,7 @@ public class MenuToolkit {
 
   public MenuItem createUnhideAllMenuItem() {
     MenuItem unhideAll = new MenuItem(labelMaker.getLabel(LabelName.SHOW_ALL));
-    unhideAll.setOnAction(event -> nativeAdapter.unhideAllApplications());
+    unhideAll.setOnAction(event -> nativeAdapter.showAllWindows());
     return unhideAll;
   }
 
