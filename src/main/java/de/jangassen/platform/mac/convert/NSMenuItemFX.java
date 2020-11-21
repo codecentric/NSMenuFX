@@ -14,32 +14,44 @@ import java.util.Optional;
 
 public class NSMenuItemFX {
 
+  private static final String SEPARATOR_ITEM = "separatorItem";
+
+  private NSMenuItemFX() {}
+
   public static final FoundationCallbackFactory.FoundationCallback VOID_CALLBACK = new FoundationCallbackFactory.FoundationCallback(-1, null, null);
 
   public static NSMenuItem convert(MenuItem menuItem) {
     if (menuItem instanceof SeparatorMenuItem) {
-      return FoundationProxy.invokeStatic(NSMenuItem.class, "separatorItem");
+      return FoundationProxy.invokeStatic(NSMenuItem.class, SEPARATOR_ITEM);
     } else {
-      FoundationCallbackFactory.FoundationCallback foundationCallback = getFoundationCallback(menuItem);
-
-      String text = Optional.ofNullable(menuItem.getText()).orElse("");
-      NSMenuItem nsMenuItem = NSMenuItem.alloc()
-              .initWithTitle(text, foundationCallback.getSelector(), toKeyEquivalentString(menuItem.getAccelerator()));
-      nsMenuItem.setTarget(foundationCallback.getTarget());
-
-      menuItem.textProperty().addListener((observable, oldValue, newValue) -> {
-        if (!newValue.equals(oldValue)) {
-          nsMenuItem.setTitle(newValue);
-        }
-      });
-
-      NSCleaner.register(menuItem, nsMenuItem);
-      if (foundationCallback != VOID_CALLBACK) {
-        NSCleaner.register(menuItem, foundationCallback);
-      }
-
-      return nsMenuItem;
+      return convertMenuItem(menuItem);
     }
+  }
+
+  private static NSMenuItem convertMenuItem(MenuItem menuItem) {
+    FoundationCallbackFactory.FoundationCallback foundationCallback = getFoundationCallback(menuItem);
+
+    NSMenuItem nsMenuItem = createNsMenuItem(menuItem, foundationCallback);
+    menuItem.textProperty().addListener((observable, oldValue, newValue) -> {
+      if (!newValue.equals(oldValue)) {
+        nsMenuItem.setTitle(newValue);
+      }
+    });
+
+    NSCleaner.register(menuItem, nsMenuItem);
+    if (foundationCallback != VOID_CALLBACK) {
+      NSCleaner.register(menuItem, foundationCallback);
+    }
+
+    return nsMenuItem;
+  }
+
+  private static NSMenuItem createNsMenuItem(MenuItem menuItem, FoundationCallbackFactory.FoundationCallback foundationCallback) {
+    String text = Optional.ofNullable(menuItem.getText()).orElse("");
+    NSMenuItem nsMenuItem = NSMenuItem.alloc()
+            .initWithTitle(text, foundationCallback.getSelector(), toKeyEquivalentString(menuItem.getAccelerator()));
+    nsMenuItem.setTarget(foundationCallback.getTarget());
+    return nsMenuItem;
   }
 
   private static FoundationCallbackFactory.FoundationCallback getFoundationCallback(MenuItem menuItem) {

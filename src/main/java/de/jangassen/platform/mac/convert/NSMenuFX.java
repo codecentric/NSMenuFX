@@ -9,10 +9,14 @@ import javafx.scene.control.MenuItem;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class NSMenuFX {
+  private NSMenuFX() {}
+
   public static NSMenu convert(Menu menu) {
-    NSMenu nsMenu = NSMenu.alloc().initWithTitle(menu.getText());
+    String text = Optional.ofNullable(menu.getText()).orElse("");
+    NSMenu nsMenu = NSMenu.alloc().initWithTitle(text);
 
     Map<MenuItem, NSMenuItem> fxToNsMenuItems = new HashMap<>();
     menu.getItems()

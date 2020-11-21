@@ -25,7 +25,7 @@ public final class MenuBarUtils {
 	}
 
 	public static void removeExistingMenuBar(ObservableList<Node> children) {
-		children.removeAll(children.stream().filter(node -> node instanceof MenuBar).collect(Collectors.toList()));
+		children.removeAll(children.stream().filter(MenuBar.class::isInstance).collect(Collectors.toList()));
 	}
 
 	public static void setMenuBar(Stage stage, MenuBar menuBar) {
