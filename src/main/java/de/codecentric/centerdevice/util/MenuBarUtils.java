@@ -15,6 +15,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public final class MenuBarUtils {
+	private MenuBarUtils() {}
+
 	public static MenuBar createMenuBar(List<Menu> menus) {
 		MenuBar bar = new MenuBar();
 		bar.setUseSystemMenuBar(true);

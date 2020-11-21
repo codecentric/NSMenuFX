@@ -8,9 +8,9 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class StageUtils {
 
@@ -69,12 +69,10 @@ public final class StageUtils {
   }
 
   private static void updateStages() {
-    List<Stage> currentStages = new LinkedList<>();
-    for (Window w : windows) {
-      if (w instanceof Stage) {
-        currentStages.add((Stage) w);
-      }
-    }
+    List<Stage> currentStages = windows.stream()
+            .filter(Stage.class::isInstance)
+            .map(Stage.class::cast)
+            .collect(Collectors.toList());
 
     // Remove no-longer existing stages
     stages.removeIf(stage -> !currentStages.contains(stage));
@@ -82,7 +80,7 @@ public final class StageUtils {
     // Add any new stages
     currentStages.stream()
             .filter(currentStage -> !stages.contains(currentStage))
-            .forEach(newStage -> stages.add(newStage));
+            .forEach(stages::add);
   }
 
   public static Optional<Stage> getFocusedStage() {
