@@ -1,9 +1,10 @@
 package de.jangassen.platform.mac.convert;
 
-import de.jangassen.platform.mac.cleanup.NSCleaner;
-import de.jangassen.jfa.FoundationCallbackFactory;
-import de.jangassen.jfa.FoundationProxy;
+import de.jangassen.jfa.FoundationCallback;
+import de.jangassen.jfa.FoundationCallbackRegistry;
+import de.jangassen.jfa.ObjcToJava;
 import de.jangassen.jfa.appkit.NSMenuItem;
+import de.jangassen.jfa.cleanup.NSCleaner;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
@@ -16,20 +17,21 @@ public class MenuItemConverter {
 
   private static final String SEPARATOR_ITEM = "separatorItem";
 
-  private MenuItemConverter() {}
+  private MenuItemConverter() {
+  }
 
-  public static final FoundationCallbackFactory.FoundationCallback VOID_CALLBACK = new FoundationCallbackFactory.FoundationCallback(-1, null, null);
+  public static final FoundationCallback VOID_CALLBACK = new FoundationCallback(null, null);
 
   public static NSMenuItem convert(MenuItem menuItem) {
     if (menuItem instanceof SeparatorMenuItem) {
-      return FoundationProxy.invokeStatic(NSMenuItem.class, SEPARATOR_ITEM);
+      return ObjcToJava.invokeStatic(NSMenuItem.class, SEPARATOR_ITEM);
     } else {
       return convertMenuItem(menuItem);
     }
   }
 
   private static NSMenuItem convertMenuItem(MenuItem menuItem) {
-    FoundationCallbackFactory.FoundationCallback foundationCallback = getFoundationCallback(menuItem);
+    FoundationCallback foundationCallback = getFoundationCallback(menuItem);
 
     NSMenuItem nsMenuItem = createNsMenuItem(menuItem, foundationCallback);
     menuItem.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -46,7 +48,7 @@ public class MenuItemConverter {
     return nsMenuItem;
   }
 
-  private static NSMenuItem createNsMenuItem(MenuItem menuItem, FoundationCallbackFactory.FoundationCallback foundationCallback) {
+  private static NSMenuItem createNsMenuItem(MenuItem menuItem, FoundationCallback foundationCallback) {
     String text = Optional.ofNullable(menuItem.getText()).orElse("");
     NSMenuItem nsMenuItem = NSMenuItem.alloc()
             .initWithTitle(text, foundationCallback.getSelector(), toKeyEquivalentString(menuItem.getAccelerator()));
@@ -54,12 +56,12 @@ public class MenuItemConverter {
     return nsMenuItem;
   }
 
-  private static FoundationCallbackFactory.FoundationCallback getFoundationCallback(MenuItem menuItem) {
+  private static FoundationCallback getFoundationCallback(MenuItem menuItem) {
     EventHandler<ActionEvent> onAction = menuItem.getOnAction();
     if (onAction == null) {
       return VOID_CALLBACK;
     }
-    return FoundationCallbackFactory.instance().registerCallback(id -> onAction.handle(new ActionEvent()));
+    return FoundationCallbackRegistry.registerCallback(id -> onAction.handle(new ActionEvent()));
   }
 
   private static String toKeyEquivalentString(KeyCombination accelerator) {

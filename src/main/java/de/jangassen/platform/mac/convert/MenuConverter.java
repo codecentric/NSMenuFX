@@ -1,8 +1,8 @@
 package de.jangassen.platform.mac.convert;
 
-import de.jangassen.platform.mac.cleanup.NSCleaner;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
+import de.jangassen.jfa.cleanup.NSCleaner;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;

@@ -1,13 +1,13 @@
 package de.jangassen.platform.mac;
 
-import de.jangassen.platform.NativeAdapter;
-import de.jangassen.platform.mac.convert.MenuConverter;
 import de.jangassen.jfa.appkit.NSApplication;
 import de.jangassen.jfa.appkit.NSMenu;
 import de.jangassen.jfa.appkit.NSMenuItem;
 import de.jangassen.jfa.appkit.NSWorkspace;
 import de.jangassen.jfa.foundation.Foundation;
 import de.jangassen.jfa.foundation.ID;
+import de.jangassen.platform.NativeAdapter;
+import de.jangassen.platform.mac.convert.MenuConverter;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;
 
