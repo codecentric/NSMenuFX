@@ -23,6 +23,10 @@ public class MenuItemConverter {
   public static final FoundationCallback VOID_CALLBACK = new FoundationCallback(null, null);
 
   public static NSMenuItem convert(MenuItem menuItem) {
+    if (menuItem == null) {
+      return null;
+    }
+
     if (menuItem instanceof SeparatorMenuItem) {
       return ObjcToJava.invokeStatic(NSMenuItem.class, SEPARATOR_ITEM);
     } else {

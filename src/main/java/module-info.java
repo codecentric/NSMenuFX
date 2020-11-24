@@ -11,4 +11,6 @@ module nsmenufx {
     exports de.jangassen.labels;
     exports de.jangassen.dialogs.about;
     exports de.jangassen.icns;
+
+    exports de.jangassen.platform.mac to jfa;
 }

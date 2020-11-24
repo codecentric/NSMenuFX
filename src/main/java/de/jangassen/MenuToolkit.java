@@ -149,6 +149,10 @@ public class MenuToolkit {
     nativeAdapter.setApplicationMenu(menu);
   }
 
+  public void setDocIconMenu(Menu menu) {
+    nativeAdapter.setDocIconMenu(menu);
+  }
+
   public void setGlobalMenuBar(MenuBar menuBar) {
     setMenuBar(menuBar);
     MenuBarSyncListener.register(menuBar);

@@ -21,6 +21,8 @@ public class JavaFXDefault extends Application {
 		MenuToolkit tk = MenuToolkit.toolkit(Locale.getDefault());
 		tk.setApplicationMenu(tk.createDefaultApplicationMenu("test"));
 
+		tk.setDocIconMenu(new Menu());
+
 		MenuBar menuBar = new MenuBar();
 		menuBar.useSystemMenuBarProperty().set(true);
 

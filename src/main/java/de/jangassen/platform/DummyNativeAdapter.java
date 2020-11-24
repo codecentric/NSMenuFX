@@ -34,6 +34,11 @@ public class DummyNativeAdapter implements NativeAdapter {
   }
 
   @Override
+  public void setDocIconMenu(Menu menu) {
+    // Only supported on macOS
+  }
+
+  @Override
   public void quit() {
     Platform.exit();
   }

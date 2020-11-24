@@ -15,6 +15,10 @@ public class MenuConverter {
   private MenuConverter() {}
 
   public static NSMenu convert(Menu menu) {
+    if (menu == null) {
+      return null;
+    }
+
     String text = Optional.ofNullable(menu.getText()).orElse("");
     NSMenu nsMenu = NSMenu.alloc().initWithTitle(text);
 

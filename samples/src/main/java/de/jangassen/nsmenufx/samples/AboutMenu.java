@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -41,5 +42,10 @@ public class AboutMenu extends Application {
     MenuBar bar = new MenuBar();
     bar.getMenus().add(applicationMenu);
     tk.setMenuBar(bar);
+
+    Menu menu = new Menu("test");
+    MenuItem myItem = new MenuItem("Hallo welt");
+    menu.getItems().add(myItem);
+    tk.setDocIconMenu(menu);
   }
 }

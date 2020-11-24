@@ -1,9 +1,8 @@
 package de.jangassen.platform.mac;
 
-import de.jangassen.jfa.appkit.NSApplication;
-import de.jangassen.jfa.appkit.NSMenu;
-import de.jangassen.jfa.appkit.NSMenuItem;
-import de.jangassen.jfa.appkit.NSWorkspace;
+import de.jangassen.jfa.JavaToObjc;
+import de.jangassen.jfa.ObjcToJava;
+import de.jangassen.jfa.appkit.*;
 import de.jangassen.jfa.foundation.Foundation;
 import de.jangassen.jfa.foundation.ID;
 import de.jangassen.platform.NativeAdapter;
@@ -58,4 +57,13 @@ public class MacNativeAdapter implements NativeAdapter {
     this.forceQuitOnCmdQ = forceQuit;
   }
 
+  public void setDocIconMenu(Menu menu) {
+    NSApplicationDelegate delegate = sharedApplication.delegate();
+    NSMenu convert = MenuConverter.convert(menu);
+
+    ApplicationDelegateWithMenu foundationProxy = new ApplicationDelegateWithMenu(delegate, convert);
+
+    ID mappedObject = JavaToObjc.map(foundationProxy);
+    sharedApplication.setDelegate(ObjcToJava.map(mappedObject, NSApplicationDelegate.class));
+  }
 }
